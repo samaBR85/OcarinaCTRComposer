@@ -42,10 +42,10 @@
 
   /* ---- nav ---- */
   nav{position:sticky; top:0; z-index:20; background:rgba(20,17,12,.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--border);}
-  nav .bar{display:flex; align-items:center; justify-content:space-between; padding:12px 24px; max-width:1040px; margin:0 auto;}
+  nav .bar{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; row-gap:8px; padding:12px 24px; max-width:1040px; margin:0 auto;}
   nav .brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:600; color:var(--cream); text-decoration:none;}
   nav .brand svg{width:28px; height:28px;}
-  nav .links{display:flex; gap:22px; font-size:.92rem;}
+  nav .links{display:flex; gap:16px; row-gap:6px; font-size:.92rem; flex-wrap:wrap;}
   nav .links a{color:var(--cream-dim); text-decoration:none;}
   nav .links a:hover{color:var(--gold-bright);}
 
@@ -70,6 +70,24 @@
   .btn.ghost{background:var(--bg1); color:var(--cream);}
   .btn.ghost:hover{background:var(--bg2);}
 
+  /* ---- screenshots ---- */
+  .shots-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; margin-top:28px;}
+  .shot{background:var(--bg1); border:1px solid var(--border); border-radius:10px; overflow:hidden; cursor:pointer; padding:0; text-align:left;}
+  .shot img{display:block; width:100%; aspect-ratio:401/300; object-fit:cover; object-position:top;}
+  .shot span{display:block; padding:8px 10px; font-size:.78rem; color:var(--cream-dim);}
+  .shot:hover{border-color:var(--border-strong);}
+  #lightbox{
+    display:none; position:fixed; inset:0; z-index:50; background:rgba(10,8,5,.92);
+    align-items:center; justify-content:center; flex-direction:column; padding:32px;
+  }
+  #lightbox.open{display:flex;}
+  #lightbox img{max-width:min(90vw,520px); max-height:75vh; border-radius:10px; border:1px solid var(--border-strong);}
+  #lightbox-caption{color:var(--cream-dim); margin-top:14px; font-size:.9rem;}
+  #lightbox-close{
+    position:absolute; top:20px; right:24px; background:none; border:1px solid var(--border-strong);
+    color:var(--cream); width:36px; height:36px; border-radius:50%; font-size:1.3rem; cursor:pointer; line-height:1;
+  }
+
   /* ---- feature grid ---- */
   .grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; margin-top:32px;}
   .card{
@@ -93,7 +111,10 @@
   .install-card{background:var(--bg1); border:1px solid var(--border); border-radius:12px; padding:24px;}
   .install-card ol{margin:0; padding-left:1.2em; color:var(--cream); font-size:.95rem;}
   .install-card li{margin-bottom:.6em;}
-  .install-card code{background:var(--bg2); border:1px solid var(--border); padding:2px 6px; border-radius:4px; font-size:.85em; color:var(--gold-bright);}
+  .install-card code{background:var(--bg2); border:1px solid var(--border); padding:2px 6px; border-radius:4px; font-size:.85em; color:var(--gold-bright); word-break:break-all;}
+  .qr-row{display:flex; align-items:center; gap:16px; margin-bottom:14px; flex-wrap:wrap;}
+  .qr-row p{margin:0; font-size:.92rem; color:var(--cream-dim); flex:1 1 200px; min-width:0;}
+  .qr-code{flex-shrink:0; background:#fff; padding:6px; border-radius:8px;}
   .warn{
     margin-top:16px; padding:12px 14px; border-left:3px solid var(--red); background:rgba(216,134,120,.08);
     font-size:.88rem; color:var(--cream-dim); border-radius:0 6px 6px 0;
@@ -129,6 +150,7 @@
     </a>
     <div class="links">
       <a href="#features">Features</a>
+      <a href="#screenshots">Screenshots</a>
       <a href="#install">Install</a>
       <a href="#credits">Credits</a>
       <a href="https://github.com/samaBR85/OcarinaCTRComposer/wiki/RAM-Address-Map">Address Map</a>
@@ -214,6 +236,17 @@
   </div>
 </section>
 
+<section id="screenshots" class="wrap">
+  <h2 class="center">Screenshots</h2>
+  <div class="shots-grid" id="shots"></div>
+</section>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+  <button id="lightbox-close" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="" />
+  <div id="lightbox-caption"></div>
+</div>
+
 <section id="install" class="wrap">
   <h2 class="center">Install</h2>
   <div class="install-cols">
@@ -228,13 +261,16 @@
     </div>
     <div class="install-card">
       <h3>Via Universal-Updater</h3>
-      <ol>
-        <li>Install <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> on your 3DS.</li>
-        <li>Settings → Select UniStore → <code>+</code> → scan or enter the <b>samaBR85</b> store URL:<br>
-          <code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code></li>
-        <li>Pick <b>OcarinaCTRComposer</b> from the list and download — it installs straight to your SD card.</li>
-      </ol>
-      <p class="muted">Same store used by <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> — if you already added it for that plugin, OcarinaCTRComposer is already there too.</p>
+      <div class="qr-row">
+        <img src="unistore-qr.png" width="128" height="128" alt="samaBR85 UniStore QR code" class="qr-code" />
+        <p>Have <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> on your
+        3DS? Scan this QR in <b>Settings → Select UniStore → + → Scan QR Code</b>, then pick
+        <b>OcarinaCTRComposer</b> and Download. It installs straight to your SD card — no PC needed.</p>
+      </div>
+      <p class="muted">Same <b>samaBR85</b> store used by <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> —
+      if you already added it for that plugin, OcarinaCTRComposer is already there too. No scanner handy?
+      Settings → Select UniStore → <code>+</code> → enter the URL instead:<br>
+      <code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code></p>
     </div>
   </div>
   <div class="warn">
@@ -273,6 +309,48 @@
     running game's memory on your own console. Use at your own risk.</p>
   </div>
 </footer>
+
+<script>
+(function(){
+  var BASE = "https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/";
+  var SHOTS = [
+    ["home.png", "HOME menu"],
+    ["battle.png", "Battle folder"],
+    ["movement.png", "Movement — Teleport + waypoints, starred"],
+    ["teleport.png", "Teleport — filterable warp grid"],
+    ["cheat_search.png", "Cheat Search — the OoT3D-styled keypad"],
+    ["checklist_01.png", "100% Checklist — progress by area"],
+    ["checklist_02.png", "Checklist item — hint & location"],
+    ["hex_editor.png", "Hex Editor — live byte grid"],
+    ["quickmenu.png", "Quick Menu — favourites"],
+    ["game_guide.png", "Game Guide — embedded walkthrough"],
+    ["settings.png", "Settings — themes, language, hotkeys"],
+    ["about.png", "About — credits"],
+    ["theme_03.png", "Change Theme — Fallout Pip-Boy"],
+    ["theme_06.png", "Change Theme — Synthwave"]
+  ];
+  var grid = document.getElementById("shots");
+  SHOTS.forEach(function(s){
+    var btn = document.createElement("button");
+    btn.className = "shot";
+    btn.innerHTML = '<img src="' + BASE + s[0] + '" alt="' + s[1] + '" loading="lazy"><span>' + s[1] + '</span>';
+    btn.addEventListener("click", function(){ openLightbox(BASE + s[0], s[1]); });
+    grid.appendChild(btn);
+  });
+
+  var lb = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lightbox-img");
+  var lbCap = document.getElementById("lightbox-caption");
+  function openLightbox(src, cap){
+    lbImg.src = src; lbImg.alt = cap; lbCap.textContent = cap;
+    lb.classList.add("open");
+  }
+  function closeLightbox(){ lb.classList.remove("open"); lbImg.src = ""; }
+  document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
+  lb.addEventListener("click", function(e){ if (e.target === lb) closeLightbox(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeLightbox(); });
+})();
+</script>
 
 </body>
 </html>
