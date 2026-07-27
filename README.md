@@ -84,10 +84,18 @@ Hex Editor and a full in-game walkthrough — all rendered by the plugin itself.
 3. Open the Rosalina menu (`L + Down + SELECT`) → **Plugin Loader → [Enabled]**.
 4. Launch Ocarina of Time 3D and press **SELECT** to open the menu.
 
-**Via [Universal-Updater](https://github.com/Universal-Team/Universal-Updater):** Settings →
-Select UniStore → `+` → scan the QR code on the [project page](https://samabr85.github.io/OcarinaCTRComposer/#install)
-(or enter the store URL directly) → pick **OcarinaCTRComposer** → Download. Installs straight to
-your SD card, no PC needed.
+**Via [Universal-Updater](https://github.com/Universal-Team/Universal-Updater):**
+
+<img src="screenshots/unistore-qr.png" width="128" height="128" alt="samaBR85 UniStore QR code" />
+
+Settings → Select UniStore → `+` → **Scan QR Code** (scan the image above), then pick
+**OcarinaCTRComposer** → Download. Installs straight to your SD card, no PC needed. Same
+**samaBR85** store used by [Gen6 CTRPF Overhauled](https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/) —
+if you already added it for that plugin, OcarinaCTRComposer is already there too. No scanner
+handy? Settings → Select UniStore → `+` → enter the URL instead:
+```
+raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore
+```
 
 > ### ⚠️ Region / version
 > The cheat addresses are fixed to the **USA** version (`0004000000033500`). On EUR/JPN they
