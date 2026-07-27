@@ -1,0 +1,366 @@
+# CTRComposer UI language MASTER TEMPLATE (English).
+# NOT shipped/loaded at runtime: language 0 (English) uses no file - the plugin
+# returns the embedded T("...") keys directly. This file lives in source/ only as
+# the single source of truth for generating the lang/*.txt translations.
+# Format: EnglishSource=Translation
+# Lines starting with # or ; are comments. Missing lines fall back to English.
+# The Game Guide and Plugin Guide text are NOT translated here.
+#
+# CHARACTER BUDGETS (translations longer than this get clipped with '..'):
+#   HOME categories (Movement/Tools/...): ~12 chars   [tight!]
+#   Cheat names: ~26 chars                            (big font)
+#   Folder / tool / picker names: ~28 chars
+#   Settings labels: ~16 chars (a value sits on the right)
+#   Search form field labels: 15 chars              (small font)
+#   Search field values / enum names: ~26 chars     (small font)
+#   Hints / footers: ~40 chars                      (small font)
+#   Rule: prefer a shorter synonym over overflowing. Accents OK in the
+#   big-font items; the small-font search form strips accents (e->e).
+
+# ----------------------------------------
+Movement=Movement
+Battle=Battle
+Inventory=Inventory
+Time=Time
+Quest=Quest
+Misc.=Misc.
+Tools=Tools
+Settings=Settings
+Swords=Swords
+Shields=Shields
+Suits=Suits
+Items=Items
+Bottles=Bottles
+Gauntlet Color=Gauntlet Color
+
+# ----------------------------------------
+# BUDGET ~12 chars
+CHEATS=CHEATS
+GUIDES=GUIDES
+SYSTEM=SYSTEM
+
+# ----------------------------------------
+Game Guide=Game Guide
+Plugin Guide=Plugin Guide
+Cheat Search=Cheat Search
+RAM Dumper=RAM Dumper
+Hex Editor=Hex Editor
+About=About
+
+# ----------------------------------------
+Toggle notifications (toast)=Toggle notifications (toast)
+Change Theme=Change Theme
+Language=Language
+Quick Menu hotkey=Quick Menu hotkey
+
+# ----------------------------------------
+MoonJump=MoonJump
+Fast Move=Fast Move
+Epona Max Carrots=Epona Max Carrots
+Epona Carrots All Areas=Epona Carrots All Areas
+Epona MoonJump (hold {L}+{A})=Epona MoonJump (hold {L}+{A})
+Invincible=Invincible
+Refill Hearts (once)=Refill Hearts (once)
+Refill Magic (once)=Refill Magic (once)
+Unlock / Max Hearts=Unlock / Max Hearts
+Keep Hearts Full=Keep Hearts Full
+Unlock Magic=Unlock Magic
+Unlock Large Magic=Unlock Large Magic
+Spin Attack=Spin Attack
+Sword Glitch=Sword Glitch
+Sticks Are On Fire=Sticks Are On Fire
+Nayru's Love Always=Nayru's Love Always
+Inventory Modifier=Inventory Modifier
+100 Gold Skulltulas=100 Gold Skulltulas
+Max Rupees (999)=Max Rupees (999)
+Can Use All Items=Can Use All Items
+Unlock All Items=Unlock All Items
+Toggle Kokiri Sword=Toggle Kokiri Sword
+Toggle Master Sword=Toggle Master Sword
+Toggle Biggoron Sword=Toggle Biggoron Sword
+Unlock All Swords=Unlock All Swords
+Toggle Deku Shield=Toggle Deku Shield
+Toggle Hylian Shield=Toggle Hylian Shield
+Toggle Mirror Shield=Toggle Mirror Shield
+Unlock All Shields=Unlock All Shields
+Toggle Kokiri Tunic=Toggle Kokiri Tunic
+Toggle Goron Tunic=Toggle Goron Tunic
+Toggle Zora Tunic=Toggle Zora Tunic
+Unlock All Tunics=Unlock All Tunics
+Infinite Arrows=Infinite Arrows
+Infinite Deku Nuts=Infinite Deku Nuts
+Infinite Deku Sticks=Infinite Deku Sticks
+Infinite Bombs=Infinite Bombs
+Infinite Bombchu=Infinite Bombchu
+Infinite Slingshot=Infinite Slingshot
+Infinite Explosives=Infinite Explosives
+Bottle #1=Bottle #1
+Bottle #2=Bottle #2
+Bottle #3=Bottle #3
+Unlock All Bottles (empty)=Unlock All Bottles (empty)
+Black Gauntlet=Black Gauntlet
+Blue Gauntlet=Blue Gauntlet
+Green Gauntlet=Green Gauntlet
+Purple Gauntlet=Purple Gauntlet
+Set Sunrise=Set Sunrise
+Set Daytime=Set Daytime
+Set Sunset=Set Sunset
+Set Night=Set Night
+Time Modifier ({L}+Up/Down)=Time Modifier ({L}+Up/Down)
+Sky Always Raining=Sky Always Raining
+Unlock Best Equipment=Unlock Best Equipment
+Unlock All Stones=Unlock All Stones
+Unlock All Medallions=Unlock All Medallions
+Enhanced Defense=Enhanced Defense
+Unlock Heart Pieces=Unlock Heart Pieces
+Infinite Small Keys=Infinite Small Keys
+Map+Compass+BossKey All=Map+Compass+BossKey All
+Giant Link=Giant Link
+Mini Link=Mini Link
+Normal Link=Normal Link
+Paper Link=Paper Link
+Always Child Voice=Always Child Voice
+Always Adult Voice=Always Adult Voice
+Open Chest Many Times=Open Chest Many Times
+Collect Heart Piece Many=Collect Heart Piece Many
+No Damage From Falling=No Damage From Falling
+Giant Knife Never Breaks=Giant Knife Never Breaks
+
+# ----------------------------------------
+Red Potion=Red Potion
+Green Potion=Green Potion
+Blue Potion=Blue Potion
+Fairy=Fairy
+Fish=Fish
+Milk (2 doses)=Milk (2 doses)
+Milk (1 dose)=Milk (1 dose)
+Letter=Letter
+Blue Flame=Blue Flame
+Insect=Insect
+Soul=Soul
+Spirit=Spirit
+Empty Bottle=Empty Bottle
+Locked (careful!)=Locked (careful!)
+Deku Stick=Deku Stick
+Deku Nut=Deku Nut
+Bomb=Bomb
+Fairy Bow=Fairy Bow
+Fire Arrow=Fire Arrow
+Din's Fire=Din's Fire
+Fairy Slingshot=Fairy Slingshot
+Fairy Ocarina=Fairy Ocarina
+Ocarina of Time=Ocarina of Time
+Bombchu=Bombchu
+Hookshot=Hookshot
+Longshot=Longshot
+Ice Arrow=Ice Arrow
+Farore's Wind=Farore's Wind
+Boomerang=Boomerang
+Lens of Truth=Lens of Truth
+Magic Beans=Magic Beans
+Megaton Hammer=Megaton Hammer
+Light Arrow=Light Arrow
+Nayru's Love=Nayru's Love
+Weird Egg=Weird Egg
+Cucco=Cucco
+Zelda's Letter=Zelda's Letter
+Keaton Mask=Keaton Mask
+Skull Mask=Skull Mask
+Spooky Mask=Spooky Mask
+Bunny Hood=Bunny Hood
+Goron Mask=Goron Mask
+Zora Mask=Zora Mask
+Gerudo Mask=Gerudo Mask
+Mask of Truth=Mask of Truth
+No Mask=No Mask
+Pocket Egg=Pocket Egg
+Pocket Cucco=Pocket Cucco
+Cojiro=Cojiro
+Odd Mushroom=Odd Mushroom
+Odd Poultice=Odd Poultice
+Poacher's Saw=Poacher's Saw
+Broken Goron Sword=Broken Goron Sword
+Prescription=Prescription
+Eyeball Frog=Eyeball Frog
+World Finest Eyedrops=World Finest Eyedrops
+Claim Check=Claim Check
+Fairy Bow (Fire)=Fairy Bow (Fire)
+Fairy Bow (Ice)=Fairy Bow (Ice)
+Fairy Bow (Light)=Fairy Bow (Light)
+Kokiri Sword=Kokiri Sword
+Master Sword=Master Sword
+Giant's Knife=Giant's Knife
+Deku Shield=Deku Shield
+Hylian Shield=Hylian Shield
+Mirror Shield=Mirror Shield
+Kokiri Tunic=Kokiri Tunic
+Goron Tunic=Goron Tunic
+Zora Tunic=Zora Tunic
+Iron Boots=Iron Boots
+Biggoron's Sword=Biggoron's Sword
+Empty=Empty
+
+# ----------------------------------------
+Equal To=Equal To
+Greater Than=Greater Than
+Less Than=Less Than
+Changed=Changed
+Unchanged=Unchanged
+Increased=Increased
+Decreased=Decreased
+Known Value=Known Value
+Unknown Search=Unknown Search
+All Memory=All Memory
+Low 1-128M=Low 1-128M
+Mid 128-512M=Mid 128-512M
+High 512M-1G=High 512M-1G
+
+# ----------------------------------------
+English=English
+{DP} navigate={DP} navigate
+{A} open / toggle    {B} back={A} open / toggle    {B} back
+{X} cheat info    {Y} favorite={X} cheat info    {Y} favorite
+SELECT: close menu=SELECT: close menu
+ in game: quick menu= in game: quick menu
+{X} info   {Y} fav={X} info   {Y} fav
+{A} set   {B} cancel={A} set   {B} cancel
+: SET=: SET
+no search=no search
+Address=Address
+New Value=New Value
+Old Value=Old Value
+Snapshot taken.=Snapshot taken.
+1. Change the value in the game.=1. Change the value in the game.
+2. Pick Changed / Decreased / etc.=2. Pick Changed / Decreased / etc.
+3. Search. Repeat to narrow down.=3. Search. Repeat to narrow down.
+(no matches)=(no matches)
+Set the form below, then Search.=Set the form below, then Search.
+{A} poke  {DP} move  {B} exit={A} poke  {DP} move  {B} exit
+{X} type  {Y} scan  {R} search  {B} exit={X} type  {Y} scan  {R} search  {B} exit
+(not needed)=(not needed)
+Next=Next
+Search=Search
+Undo=Undo
+Reset=Reset
+Tap a field, or:=Tap a field, or:
+{X} type   {Y} scan   {R} search   {L} undo={X} type   {Y} scan   {R} search   {L} undo
+Scanning...=Scanning...
+Fan project, non-commercial.=Fan project, non-commercial.
+Press any button to go back=Press any button to go back
+Start:=Start:
+End:=End:
+Size:=Size:
+Saves to:=Saves to:
+{X} size  {Y} from-search  {R} dump  {B} exit={X} size  {Y} from-search  {R} dump  {B} exit
+From Search=From Search
+Dump=Dump
+Tap a field, or use the buttons=Tap a field, or use the buttons
+{DP} move  {A} edit  {X} goto  {B} exit={DP} move  {A} edit  {X} goto  {B} exit
+-- (unreadable)=-- (unreadable)
+Edit Byte=Edit Byte
+On top: {DP} move  {L}/{R} page  {Y} from-search=On top: {DP} move  {L}/{R} page  {Y} from-search
+Read on the top screen.=Read on the top screen.
+{DP} / {L}/{R} : scroll or move={DP} / {L}/{R} : scroll or move
+{A} open     {B} back={A} open     {B} back
+SELECT : back to the game=SELECT : back to the game
+{DP} / {L}/{R} scroll   {B} back={DP} / {L}/{R} scroll   {B} back
+{A} open   {B} back   SELECT: game={A} open   {B} back   SELECT: game
+{A} apply  {B} cancel  {DP} move  {L}/{R} page={A} apply  {B} cancel  {DP} move  {L}/{R} page
+Select Language=Select Language
+A: confirm=A: confirm
+Favorites=Favorites
+Press Y in the menu to star=Press Y in the menu to star
+
+# ----------------------------------------
+Full Ocarina of Time 3D walkthrough: Young/Adult Link, Master Quest, item locations, secrets. Text by z64central.com, packaged by LowEndC.=Full Ocarina of Time 3D walkthrough: Young/Adult Link, Master Quest, item locations, secrets. Text by z64central.com, packaged by LowEndC.
+How to use this plugin: the menu, quick menu, and the Cheat Search / RAM Dumper / Hex Editor tools.=How to use this plugin: the menu, quick menu, and the Cheat Search / RAM Dumper / Hex Editor tools.
+Search the game's RAM for a value, then narrow it down (greater/less/changed...) to find its address. Poke results directly.=Search the game's RAM for a value, then narrow it down (greater/less/changed...) to find its address. Poke results directly.
+Save a block of the game's memory to a .bin file on the SD card. Pick a start address and size, or pull the address from Cheat Search.=Save a block of the game's memory to a .bin file on the SD card. Pick a start address and size, or pull the address from Cheat Search.
+Browse memory as a live hex grid and edit any byte on the spot. Jump to an address, or to your Cheat Search result. Read-only regions are protected.=Browse memory as a live hex grid and edit any byte on the spot. Jump to an address, or to your Cheat Search result. Read-only regions are protected.
+Plugin info and credits.=Plugin info and credits.
+Hold your MoonJump button (set it in Settings) to rise into the air. Release to fall. Mind the fall distance!=Hold your MoonJump button (set it in Settings) to rise into the air. Release to fall. Mind the fall distance!
+Hold your Fast Move button (set it in Settings) while moving to run much faster. Careful near loading zones: it can push you out of bounds.=Hold your Fast Move button (set it in Settings) while moving to run much faster. Careful near loading zones: it can push you out of bounds.
+Epona's carrots are always full.=Epona's carrots are always full.
+Infinite carrots for Epona in every area.=Infinite carrots for Epona in every area.
+Hold {L}+{A} while riding Epona to jump high.=Hold {L}+{A} while riding Epona to jump high.
+Enemies deal no damage. This one patches game code: SAVE your game before the first use.=Enemies deal no damage. This one patches game code: SAVE your game before the first use.
+Instantly refills all hearts. Applies once.=Instantly refills all hearts. Applies once.
+Instantly refills the magic bar. Applies once.=Instantly refills the magic bar. Applies once.
+Unlocks all 20 heart containers while active.=Unlocks all 20 heart containers while active.
+Constantly refills your hearts (can't die from damage).=Constantly refills your hearts (can't die from damage).
+Unlocks the magic bar. Applies once.=Unlocks the magic bar. Applies once.
+Unlocks the large magic bar. Applies once.=Unlocks the large magic bar. Applies once.
+Spin attack is always fully charged.=Spin attack is always fully charged.
+Enables the sword glitch state.=Enables the sword glitch state.
+Deku Sticks are always lit on fire.=Deku Sticks are always lit on fire.
+Keeps the Nayru's Love protection barrier active.=Keeps the Nayru's Love protection barrier active.
+Writes the chosen item into the Bottle #3 inventory slot.=Writes the chosen item into the Bottle #3 inventory slot.
+Keeps the Gold Skulltula token count at 100.=Keeps the Gold Skulltula token count at 100.
+Keeps your rupees at 999.=Keeps your rupees at 999.
+Makes every item usable regardless of age. Applies once.=Makes every item usable regardless of age. Applies once.
+Fills the inventory with all main items. Applies once.=Fills the inventory with all main items. Applies once.
+Adds or removes the Kokiri Sword from your equipment.=Adds or removes the Kokiri Sword from your equipment.
+Adds or removes the Master Sword from your equipment.=Adds or removes the Master Sword from your equipment.
+Adds or removes the Biggoron Sword from your equipment.=Adds or removes the Biggoron Sword from your equipment.
+Unlocks all three swords.=Unlocks all three swords.
+Adds or removes the Deku Shield.=Adds or removes the Deku Shield.
+Adds or removes the Hylian Shield.=Adds or removes the Hylian Shield.
+Adds or removes the Mirror Shield.=Adds or removes the Mirror Shield.
+Unlocks all three shields.=Unlocks all three shields.
+Adds or removes the Kokiri Tunic.=Adds or removes the Kokiri Tunic.
+Adds or removes the Goron Tunic.=Adds or removes the Goron Tunic.
+Adds or removes the Zora Tunic.=Adds or removes the Zora Tunic.
+Unlocks all three tunics.=Unlocks all three tunics.
+Keeps arrows at 99.=Keeps arrows at 99.
+Keeps Deku Nuts at 99.=Keeps Deku Nuts at 99.
+Keeps Deku Sticks at 99.=Keeps Deku Sticks at 99.
+Keeps bombs at 99.=Keeps bombs at 99.
+Keeps Bombchus at 99.=Keeps Bombchus at 99.
+Keeps slingshot seeds at 99.=Keeps slingshot seeds at 99.
+Explosives are never consumed.=Explosives are never consumed.
+Choose this bottle's content. WARNING: don't set 'Locked' on a bottle tied to a key item - it duplicates the slot.=Choose this bottle's content. WARNING: don't set 'Locked' on a bottle tied to a key item - it duplicates the slot.
+Turns the three bottle slots into empty bottles. Applies once.=Turns the three bottle slots into empty bottles. Applies once.
+Paints the Golden Gauntlets black. Applies once.=Paints the Golden Gauntlets black. Applies once.
+Paints the Golden Gauntlets blue. Applies once.=Paints the Golden Gauntlets blue. Applies once.
+Paints the Golden Gauntlets green. Applies once.=Paints the Golden Gauntlets green. Applies once.
+Paints the Golden Gauntlets purple. Applies once.=Paints the Golden Gauntlets purple. Applies once.
+Sets the time of day to sunrise. Applies once.=Sets the time of day to sunrise. Applies once.
+Sets the time of day to noon. Applies once.=Sets the time of day to noon. Applies once.
+Sets the time of day to sunset. Applies once.=Sets the time of day to sunset. Applies once.
+Sets the time of day to midnight. Applies once.=Sets the time of day to midnight. Applies once.
+While active: hold {L}+{DP} Up to advance time, {L}+{DP} Down to rewind it.=While active: hold {L}+{DP} Up to advance time, {L}+{DP} Down to rewind it.
+It always rains.=It always rains.
+Best quiver, bomb bag, scales, seed bag... Applies once.=Best quiver, bomb bag, scales, seed bag... Applies once.
+All 3 Spiritual Stones + Gerudo Token. Applies once.=All 3 Spiritual Stones + Gerudo Token. Applies once.
+All 6 Medallions. Applies once.=All 6 Medallions. Applies once.
+Double defense (damage halved). Applies once.=Double defense (damage halved). Applies once.
+Grants heart pieces. Applies once.=Grants heart pieces. Applies once.
+Keeps 9 small keys in every dungeon.=Keeps 9 small keys in every dungeon.
+Map, Compass and Boss Key for every dungeon. Applies once.=Map, Compass and Boss Key for every dungeon. Applies once.
+Makes Link giant. Use 'Normal Link' to undo. Applies once.=Makes Link giant. Use 'Normal Link' to undo. Applies once.
+Makes Link tiny. Use 'Normal Link' to undo. Applies once.=Makes Link tiny. Use 'Normal Link' to undo. Applies once.
+Restores Link's normal size. Applies once.=Restores Link's normal size. Applies once.
+Makes Link flat like paper. Use 'Normal Link' to undo. Applies once.=Makes Link flat like paper. Use 'Normal Link' to undo. Applies once.
+Link always uses his child voice.=Link always uses his child voice.
+Link always uses his adult voice.=Link always uses his adult voice.
+Any chest can be opened again and again.=Any chest can be opened again and again.
+Overworld heart pieces can be collected repeatedly.=Overworld heart pieces can be collected repeatedly.
+Falling from any height deals no damage.=Falling from any height deals no damage.
+The Giant's Knife never breaks.=The Giant's Knife never breaks.
+Shows a small notification in-game when a cheat is toggled.=Shows a small notification in-game when a cheat is toggled.
+Recolor every menu live. 26 themes (25 from Gen6) plus the classic Zelda parchment. Your pick is saved.=Recolor every menu live. 26 themes (25 from Gen6) plus the classic Zelda parchment. Your pick is saved.
+Press {A} to cycle the menu language. Translations load from luma/plugins/<TitleID>/lang/. The Game Guide stays in English.=Press {A} to cycle the menu language. Translations load from luma/plugins/<TitleID>/lang/. The Game Guide stays in English.
+Press {A} to cycle the button combo that opens the quick menu in game.=Press {A} to cycle the button combo that opens the quick menu in game.
+Experimental=Experimental
+Weather & Time=Weather & Time
+MoonJump hotkey=MoonJump hotkey
+Fast Move hotkey=Fast Move hotkey
+Press {A} to cycle the button you hold in game to MoonJump.=Press {A} to cycle the button you hold in game to MoonJump.
+Press {A} to cycle the button you hold in game to Fast Move.=Press {A} to cycle the button you hold in game to Fast Move.
+GENERAL=GENERAL
+IN-GAME HOTKEYS=IN-GAME HOTKEYS
+Reset hotkeys to default=Reset hotkeys to default
+Press {A} to restore the Quick Menu, MoonJump and Fast Move hotkeys to their defaults ({L}+SELECT / {A} / {L}).=Press {A} to restore the Quick Menu, MoonJump and Fast Move hotkeys to their defaults ({L}+SELECT / {A} / {L}).
+Auto-fill Checklist on open=Auto-fill Checklist on open
+When on, the 100% Checklist runs Auto-fill from your save automatically every time you open it.=When on, the 100% Checklist runs Auto-fill from your save automatically every time you open it.
+in-game:=in-game:

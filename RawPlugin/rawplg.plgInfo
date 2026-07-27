@@ -1,0 +1,22 @@
+Author: samaBR
+
+Version: # Plugin version
+    Major: 1
+    Minor: 0
+    Revision: 0
+
+Targets: # Low TitleId of games which are compatibles with this plugin (empty for all)
+
+Title: OcarinaCTRComposer
+
+Summary: OoT3D cheats + tools, built on CTRComposer
+
+Description: |
+  CTRComposer: a raw overlay engine for 3DS (no CTRPluginFramework).
+  This build: The Legend of Zelda: Ocarina of Time 3D cheats & tools.
+
+Compatibility: Any
+
+MemorySize: 5MiB
+
+UsePrivateMemory: false

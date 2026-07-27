@@ -1,0 +1,33 @@
+# ─────────────────────────────────────────────────────────────
+# OcarinaCTRComposer — published: source + docs only.
+# The .3gx and the ready-to-install SD payload ship as a GitHub Release, not in-tree.
+# Everything listed below is excluded from the repo.
+# ─────────────────────────────────────────────────────────────
+
+# Build artifacts
+RawPlugin/build/
+*.o
+*.elf
+*.3gx
+
+# Ready-to-install SD payload (.3gx + guides + lang) -> GitHub Release, not the tree
+CTRComposer/
+
+# Source art: mostly third-party/ripped sheets, and already baked into the source headers
+# (sprites.h, kbkeys.h, logo.h, topbg.h, botbg.h). Not redistributed loose.
+Assets/
+
+# Belongs to the separate CTRComposer engine repo
+CTRComposer-Blank-Template.md
+CTRComposer-Repo-Kickoff.md
+
+# Wiki source — push to the OcarinaCTRComposer.wiki.git repo instead (see wiki/_HOW-TO-PUBLISH.md),
+# not part of the main repo tree
+wiki/
+
+# Dev-only material — not for publishing
+Gen6-Port-Feasibility.md
+references/
+SaveGames/
+GameGuide/
+dumps/
