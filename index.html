@@ -27,15 +27,20 @@
   }
   img{max-width:100%; display:block;}
   a{color:var(--gold-bright);}
-  .wrap{max-width:1040px; margin:0 auto; padding:0 24px;}
+  /* NOTE: .wrap only ever sets horizontal padding, and section/.hero only ever set vertical padding
+     (via padding-top/-bottom, never the `padding` shorthand) — on purpose. Two same-specificity
+     classes on one element (e.g. <section class="wrap">) fighting over the `padding` shorthand
+     silently zeroes out whichever side loses the cascade; longhand properties on disjoint axes
+     can't collide, so this is the safe pattern anywhere .wrap combines with a section/hero rule. */
+  .wrap{max-width:1040px; margin:0 auto; padding-left:24px; padding-right:24px;}
   h1,h2,h3{font-family:var(--font-display); font-weight:600; text-wrap:balance; margin:0 0 .5em; color:var(--cream);}
   h1{font-size:clamp(2rem,5vw,2.9rem); font-weight:700; letter-spacing:.01em;}
-  h2{font-size:clamp(1.4rem,3vw,1.9rem); color:var(--gold-bright);}
+  h2{font-size:clamp(1.4rem,3vw,1.9rem); color:var(--gold-bright); margin-bottom:20px;}
   h3{font-size:1.1rem; color:var(--cream);}
   p{margin:0 0 1em; color:var(--cream); max-width:64ch;}
   .dim{color:var(--cream-dim);}
   .muted{color:var(--dim); font-size:.9rem;}
-  section{padding:64px 0; border-top:1px solid var(--border);}
+  section{padding-top:56px; padding-bottom:56px; border-top:1px solid var(--border);}
   section:first-of-type{border-top:none;}
   .center{text-align:center;}
   .center p{margin-left:auto; margin-right:auto;}
@@ -50,7 +55,7 @@
   nav .links a:hover{color:var(--gold-bright);}
 
   /* ---- hero ---- */
-  .hero{padding:72px 0 56px; text-align:center;}
+  .hero{padding-top:72px; padding-bottom:56px; text-align:center;}
   .hero .logo{width:96px; height:96px; margin:0 auto 20px;}
   .badges{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:18px 0 24px;}
   .badge{
@@ -245,6 +250,13 @@
       <div class="card-body">
         <h3>Embedded Game Guide</h3>
         <p>A full OoT3D walkthrough readable on the top screen, in six languages, plus an in-plugin guide to every feature.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/settings.png" alt="Settings screen with rebindable hotkey rows" loading="lazy">
+      <div class="card-body">
+        <h3>Rebindable hotkeys</h3>
+        <p>MoonJump and Fast Move read their trigger from a table you control — cycle the binding in Settings, plus a one-tap reset back to the defaults.</p>
       </div>
     </div>
   </div>
