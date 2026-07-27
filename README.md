@@ -6,6 +6,8 @@ CTRComposer, a raw `.3gx` overlay engine for the 3DS.**
 Press **SELECT** in-game to open a themed menu with cheats, a Cheat Search, a RAM Dumper, a
 Hex Editor and a full in-game walkthrough — all rendered by the plugin itself.
 
+🌐 **[Project page & install guide](https://samabr85.github.io/OcarinaCTRComposer/)**
+
 <!-- SCREENSHOT: hero shot (top+bottom screen, HOME menu). Suggested: screenshots/hero.png -->
 ![OcarinaCTRComposer — HOME menu](screenshots/hero.png)
 
@@ -44,27 +46,22 @@ Hex Editor and a full in-game walkthrough — all rendered by the plugin itself.
 
 ## Screenshots
 
-<!--
-  HOW TO ADD:
-  1. On the 3DS, capture with Rosalina: L + Down + SELECT -> "Take screenshot".
-     PNGs are saved to sdmc:/luma/screenshots/ (top and bottom screens, separately).
-  2. Rename to the filenames below and drop them in this repo's screenshots/ folder.
-  3. Delete any row you don't have a shot for. hero.png (top of this README) is the cover.
-  Filenames expected: hero, home, cheats, search, hexedit, teleport, quickmenu, guide, themes, about
--->
-
 | | |
 |---|---|
-| ![HOME menu](screenshots/home.png) | ![Cheat folder](screenshots/cheats.png) |
-| **HOME** — grouped 2-column grid | **Cheats** — folders, item icons, live toggles |
-| ![Cheat Search](screenshots/search.png) | ![Hex Editor](screenshots/hexedit.png) |
-| **Cheat Search** — OoT3D-style keypad | **Hex Editor** — live byte grid |
-| ![Teleport](screenshots/teleport.png) | ![Quick Menu](screenshots/quickmenu.png) |
-| **Teleport** — mapped warps, filterable | **Quick Menu** — favourites (L + SELECT) |
-| ![Game Guide](screenshots/guide.png) | ![Themes](screenshots/themes.png) |
-| **Game Guide** — embedded walkthrough | **Change Theme** — live preview |
-| ![About](screenshots/about.png) | |
-| **About** — credits | |
+| ![Battle folder](screenshots/battle.png) | ![Movement folder](screenshots/movement.png) |
+| **Battle** — cheats with live checkboxes | **Movement** — Teleport + self-naming waypoints, starred |
+| ![Teleport](screenshots/teleport.png) | ![Cheat Search](screenshots/cheat_search.png) |
+| **Teleport** — mapped warps, filterable | **Cheat Search** — OoT3D-styled keypad |
+| ![100% Checklist hub](screenshots/checklist_01.png) | ![Checklist item detail](screenshots/checklist_02.png) |
+| **100% Checklist** — progress by area, auto-fill | **Checklist item** — hint, location, status |
+| ![Hex Editor](screenshots/hex_editor.png) | ![Quick Menu](screenshots/quickmenu.png) |
+| **Hex Editor** — live byte grid | **Quick Menu** — favourites (L + SELECT) |
+| ![Game Guide](screenshots/game_guide.png) | ![Settings](screenshots/settings.png) |
+| **Game Guide** — embedded walkthrough | **Settings** — themes, language, hotkeys |
+| ![Change Theme](screenshots/theme_06.png) | ![About](screenshots/about.png) |
+| **Change Theme** — 26 themes, live preview | **About** — credits |
+
+<sup>More in [`screenshots/`](screenshots) — every cheat folder, all 26 themes.</sup>
 
 ---
 
@@ -77,6 +74,7 @@ Hex Editor and a full in-game walkthrough — all rendered by the plugin itself.
 
 ## Install
 
+**Manual:**
 1. Copy the plugin to your SD card at:
    ```
    sdmc:/luma/plugins/0004000000033500/OcarinaCTRComposer.3gx
@@ -85,6 +83,11 @@ Hex Editor and a full in-game walkthrough — all rendered by the plugin itself.
 2. Keep **only one** `.3gx` inside that folder.
 3. Open the Rosalina menu (`L + Down + SELECT`) → **Plugin Loader → [Enabled]**.
 4. Launch Ocarina of Time 3D and press **SELECT** to open the menu.
+
+**Via [Universal-Updater](https://github.com/Universal-Team/Universal-Updater):** Settings →
+Select UniStore → `+` → scan the QR code on the [project page](https://samabr85.github.io/OcarinaCTRComposer/#install)
+(or enter the store URL directly) → pick **OcarinaCTRComposer** → Download. Installs straight to
+your SD card, no PC needed.
 
 > ### ⚠️ Region / version
 > The cheat addresses are fixed to the **USA** version (`0004000000033500`). On EUR/JPN they
