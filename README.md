@@ -50,12 +50,12 @@ Hex Editor and a full in-game walkthrough — all rendered by the plugin itself.
 |---|---|
 | ![Battle folder](screenshots/battle.png) | ![Movement folder](screenshots/movement.png) |
 | **Battle** — cheats with live checkboxes | **Movement** — Teleport + self-naming waypoints, starred |
-| ![Teleport](screenshots/teleport.png) | ![Cheat Search](screenshots/cheat_search.png) |
-| **Teleport** — mapped warps, filterable | **Cheat Search** — OoT3D-styled keypad |
-| ![100% Checklist hub](screenshots/checklist_01.png) | ![Checklist item detail](screenshots/checklist_02.png) |
-| **100% Checklist** — progress by area, auto-fill | **Checklist item** — hint, location, status |
-| ![Hex Editor](screenshots/hex_editor.png) | ![Quick Menu](screenshots/quickmenu.png) |
-| **Hex Editor** — live byte grid | **Quick Menu** — favourites (L + SELECT) |
+| ![Teleport](screenshots/teleport.png) | ![Quick Menu](screenshots/quickmenu.png) |
+| **Teleport** — mapped warps, filterable | **Quick Menu** — favourites (L + SELECT) |
+| ![Cheat Search](screenshots/cheat_search.png) | ![100% Checklist hub](screenshots/checklist_01.png) |
+| **Cheat Search** — OoT3D-styled keypad | **100% Checklist** — progress by area, auto-fill |
+| ![Checklist item detail](screenshots/checklist_02.png) | ![Hex Editor](screenshots/hex_editor.png) |
+| **Checklist item** — hint, location, status | **Hex Editor** — live byte grid |
 | ![Game Guide](screenshots/game_guide.png) | ![Settings](screenshots/settings.png) |
 | **Game Guide** — embedded walkthrough | **Settings** — themes, language, hotkeys |
 | ![Change Theme](screenshots/theme_06.png) | ![About](screenshots/about.png) |
