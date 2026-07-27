@@ -69,6 +69,8 @@
   .btn.primary:hover{background:var(--gold-bright);}
   .btn.ghost{background:var(--bg1); color:var(--cream);}
   .btn.ghost:hover{background:var(--bg2);}
+  .dl-counter{margin:18px 0 0; font-size:.85rem; color:var(--dim); text-align:center; min-height:1.3em;}
+  .dl-counter b{color:var(--gold-bright); font-weight:600;}
 
   /* ---- lightbox (used by feature-card thumbnails) ---- */
   #lightbox{
@@ -176,6 +178,7 @@
     <a class="btn primary" href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">Download latest release</a>
     <a class="btn ghost" href="https://github.com/samaBR85/OcarinaCTRComposer">View source on GitHub</a>
   </div>
+  <p class="dl-counter" id="dl-counter"></p>
 </header>
 
 <section id="about" class="wrap center">
@@ -332,6 +335,19 @@
   document.querySelectorAll(".card img").forEach(function(img){
     img.addEventListener("click", function(){ openLightbox(img.src, img.alt); });
   });
+
+  // Total downloads across every release, summed from the GitHub API.
+  fetch("https://api.github.com/repos/samaBR85/OcarinaCTRComposer/releases")
+    .then(function(r){ if (!r.ok) throw new Error("API error"); return r.json(); })
+    .then(function(releases){
+      var total = 0;
+      releases.forEach(function(rel){
+        rel.assets.forEach(function(a){ total += a.download_count; });
+      });
+      var el = document.getElementById("dl-counter");
+      el.innerHTML = "<b>" + total.toLocaleString() + "</b> download" + (total === 1 ? "" : "s") + " so far";
+    })
+    .catch(function(){ /* leave the counter blank on failure - no broken UI */ });
 
   var lb = document.getElementById("lightbox");
   var lbImg = document.getElementById("lightbox-img");
