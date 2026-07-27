@@ -57,6 +57,10 @@
   /* ---- hero ---- */
   .hero{padding-top:72px; padding-bottom:56px; text-align:center;}
   .hero .logo{width:96px; height:96px; margin:0 auto 20px;}
+  .hero-shot{
+    max-width:min(90%,340px); margin:24px auto 0; border-radius:12px;
+    border:1px solid var(--border-strong); cursor:zoom-in;
+  }
   .badges{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:18px 0 24px;}
   .badge{
     border:1px solid var(--border-strong); border-radius:999px; padding:5px 14px;
@@ -172,6 +176,7 @@
     <circle cx="48" cy="48" r="8" fill="#c9a94e"/>
   </svg>
   <h1>OcarinaCTRComposer</h1>
+  <img class="hero-shot" src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/home.png" alt="The HOME menu, grouped 2-column grid of cheat folders and tools" loading="eager">
   <div class="badges">
     <span class="badge">Luma3DS plugin</span>
     <span class="badge">USA · Title ID 0004000000033500</span>
@@ -343,8 +348,8 @@
 
 <script>
 (function(){
-  // Every feature-card screenshot doubles as a click-to-enlarge preview.
-  document.querySelectorAll(".card img").forEach(function(img){
+  // Every feature-card screenshot (and the hero shot) doubles as a click-to-enlarge preview.
+  document.querySelectorAll(".card img, .hero-shot").forEach(function(img){
     img.addEventListener("click", function(){ openLightbox(img.src, img.alt); });
   });
 
