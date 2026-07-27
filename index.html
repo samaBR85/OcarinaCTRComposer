@@ -78,8 +78,11 @@
   .btn.primary:hover{background:var(--gold-bright);}
   .btn.ghost{background:var(--bg1); color:var(--cream);}
   .btn.ghost:hover{background:var(--bg2);}
-  .dl-counter{margin:18px 0 0; font-size:.85rem; color:var(--dim); text-align:center; min-height:1.3em;}
-  .dl-counter b{color:var(--gold-bright); font-weight:600;}
+  .stats-row{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:20px 0 0;}
+  .stats-row img{display:inline-block; height:20px;}
+  .support-line{max-width:none; margin:22px 0 10px; font-size:.85rem; color:var(--dim);}
+  .kofi-btn{display:inline-block; line-height:0;}
+  .kofi-btn img{height:28px;}
 
   /* ---- lightbox (used by feature-card thumbnails) ---- */
   #lightbox{
@@ -188,7 +191,14 @@
     <a class="btn primary" href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">Download latest release</a>
     <a class="btn ghost" href="https://github.com/samaBR85/OcarinaCTRComposer">View source on GitHub</a>
   </div>
-  <p class="dl-counter" id="dl-counter"></p>
+  <div class="stats-row">
+    <img src="https://img.shields.io/github/v/release/samaBR85/OcarinaCTRComposer?label=version&color=c9a94e&style=flat-square" alt="Latest version" height="20">
+    <img src="https://img.shields.io/github/downloads/samaBR85/OcarinaCTRComposer/total?label=downloads&color=c9a94e&style=flat-square" alt="Total downloads" height="20">
+  </div>
+  <p class="support-line">If you find it useful, consider:</p>
+  <a class="kofi-btn" href="https://ko-fi.com/E5N7227AO5" target="_blank" rel="noopener">
+    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi" height="28">
+  </a>
 </header>
 
 <section id="about" class="wrap center">
@@ -352,19 +362,6 @@
   document.querySelectorAll(".card img, .hero-shot").forEach(function(img){
     img.addEventListener("click", function(){ openLightbox(img.src, img.alt); });
   });
-
-  // Total downloads across every release, summed from the GitHub API.
-  fetch("https://api.github.com/repos/samaBR85/OcarinaCTRComposer/releases")
-    .then(function(r){ if (!r.ok) throw new Error("API error"); return r.json(); })
-    .then(function(releases){
-      var total = 0;
-      releases.forEach(function(rel){
-        rel.assets.forEach(function(a){ total += a.download_count; });
-      });
-      var el = document.getElementById("dl-counter");
-      el.innerHTML = "<b>" + total.toLocaleString() + "</b> download" + (total === 1 ? "" : "s") + " so far";
-    })
-    .catch(function(){ /* leave the counter blank on failure - no broken UI */ });
 
   var lb = document.getElementById("lightbox");
   var lbImg = document.getElementById("lightbox-img");
