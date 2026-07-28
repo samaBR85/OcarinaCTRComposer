@@ -67,6 +67,9 @@
     font-size:.8rem; color:var(--cream-dim); letter-spacing:.02em;
   }
   .hero p.sub{font-size:1.1rem; max-width:52ch; margin:0 auto 28px; color:var(--cream-dim);}
+  /* Keep the italicized game title on one unbroken line once there's room (~600px); below that,
+     the phrase is wider than the viewport itself, so let it wrap normally rather than overflow. */
+  @media (min-width:620px){ .hero p.sub em{white-space:nowrap;} }
   .cta-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
   .btn{
     display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:var(--radius);
