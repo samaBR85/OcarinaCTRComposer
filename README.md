@@ -12,10 +12,6 @@ https://github.com/user-attachments/assets/914cab43-581b-4a8a-b9d9-e0603246e835
 
 <sub>Also autoplays (muted) on the <a href="https://samabr85.github.io/OcarinaCTRComposer/">project page</a>.</sub>
 
-**Made with [Claude](https://claude.ai).** I'm not a programmer — just a curious player who tests,
-pokes at things, and figures out what's missing. Every feature here started as an "I wish this
-existed" moment while playing, then got built through back-and-forth with Claude.
-
 ---
 
 ## Features
@@ -166,6 +162,12 @@ bootstrap a plugin for another 3DS game.
 - Additional codes — Fort42
 
 *Rendering techniques referenced from CTRPluginFramework.*
+
+---
+
+**Made with [Claude](https://claude.ai).** I'm not a programmer — just a curious player who tests,
+pokes at things, and figures out what's missing. Every feature here started as an "I wish this
+existed" moment while playing, then got built through back-and-forth with Claude.
 
 ---
 
