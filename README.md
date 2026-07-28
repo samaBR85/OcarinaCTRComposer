@@ -1,7 +1,7 @@
 # OcarinaCTRComposer
 
 **A cheats + tools overlay for *The Legend of Zelda: Ocarina of Time 3D* — built on
-CTRComposer, a raw `.3gx` overlay engine for the 3DS.**
+[CTRComposer](https://github.com/samaBR85/CTRComposer), a raw `.3gx` overlay engine for the 3DS.**
 
 Press **SELECT** in-game to open a themed menu with cheats, a Cheat Search, a RAM Dumper, a
 Hex Editor and a full in-game walkthrough — all rendered by the plugin itself.
@@ -138,7 +138,7 @@ The output `OcarinaCTRComposer.3gx` goes into the Title ID folder as shown in **
 
 ### Make your own plugin
 
-The engine behind this plugin — **CTRComposer** — is **game-agnostic** and released separately as a
+The engine behind this plugin — **[CTRComposer](https://github.com/samaBR85/CTRComposer)** — is **game-agnostic** and released separately as a
 blank, buildable template (menu, themes, tools, guide reader, system font, framebuffer rendering,
 game pause, persistence, quick menu, keypad, button glyphs). A new plugin is essentially a **cheat
 table + art + Title ID**. See the **[CTRComposer](https://github.com/samaBR85/CTRComposer)** repo to
