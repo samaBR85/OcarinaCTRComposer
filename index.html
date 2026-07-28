@@ -58,9 +58,11 @@
   .hero{padding-top:72px; padding-bottom:56px; text-align:center;}
   .hero .logo{width:96px; height:96px; margin:0 auto 20px;}
   .hero-shot{
-    max-width:min(90%,340px); margin:24px auto 0; border-radius:12px;
-    border:1px solid var(--border-strong); cursor:zoom-in;
+    display:block; max-width:min(90%,340px); margin:24px auto 0; border-radius:12px;
+    border:1px solid var(--border-strong);
   }
+  img.hero-shot{cursor:zoom-in;}
+  .hero-caption{max-width:none; margin:10px 0 0; font-size:.8rem; color:var(--dim);}
   .badges{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:18px 0 24px;}
   .badge{
     border:1px solid var(--border-strong); border-radius:999px; padding:5px 14px;
@@ -182,7 +184,14 @@
     <circle cx="48" cy="48" r="8" fill="#c9a94e"/>
   </svg>
   <h1>OcarinaCTRComposer</h1>
-  <img class="hero-shot" src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/home.png" alt="The HOME menu, grouped 2-column grid of cheat folders and tools" loading="eager">
+  <video class="hero-shot" controls preload="metadata"
+    poster="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/home.png"
+    aria-label="A 2-minute tour of the plugin">
+    <source src="https://github.com/samaBR85/OcarinaCTRComposer/releases/download/v1.0.0/OcarinaCTRComposer_tour.mp4" type="video/mp4">
+    Your browser doesn't support inline video —
+    <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/download/v1.0.0/OcarinaCTRComposer_tour.mp4">download the tour</a> instead.
+  </video>
+  <p class="hero-caption">▶ 2-minute plugin tour</p>
   <div class="badges">
     <span class="badge">Luma3DS plugin</span>
     <span class="badge">USA · Title ID 0004000000033500</span>
@@ -360,8 +369,8 @@
 
 <script>
 (function(){
-  // Every feature-card screenshot (and the hero shot) doubles as a click-to-enlarge preview.
-  document.querySelectorAll(".card img, .hero-shot").forEach(function(img){
+  // Every feature-card screenshot doubles as a click-to-enlarge preview.
+  document.querySelectorAll(".card img").forEach(function(img){
     img.addEventListener("click", function(){ openLightbox(img.src, img.alt); });
   });
 
