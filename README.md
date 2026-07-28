@@ -8,10 +8,9 @@ Hex Editor and a full in-game walkthrough — all rendered by the plugin itself.
 
 🌐 **[Project page & install guide](https://samabr85.github.io/OcarinaCTRComposer/)**
 
-<!-- GitHub strips <video> tags pointing at external URLs, so the hero image links out to the real,
-     autoplaying demo video on the project page instead of trying to embed it here. -->
-[![OcarinaCTRComposer — HOME menu (click to watch the 2-minute demo)](screenshots/hero.png)](https://samabr85.github.io/OcarinaCTRComposer/)
-<p align="center"><sub>▶ <a href="https://samabr85.github.io/OcarinaCTRComposer/">watch the 2-minute demo</a></sub></p>
+https://github.com/user-attachments/assets/914cab43-581b-4a8a-b9d9-e0603246e835
+
+<sub>Also autoplays (muted) on the <a href="https://samabr85.github.io/OcarinaCTRComposer/">project page</a>.</sub>
 
 ---
 
