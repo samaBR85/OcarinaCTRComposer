@@ -19,8 +19,8 @@
 // Public release version + build counter. Bump the build number every build (the tag is the
 // on-screen confirmation that the newest .3gx is loaded); the build count also doubles as the
 // "many iterations" badge. Keep the two "90"s in sync.
-#define PLUGIN_VER "v1.0.0 build 169" // full string - About screen and pause box (have room)
-#define PLUGIN_TAG "b169"             // compact tag - cramped menu title bar
+#define PLUGIN_VER "v1.0.0 build 170" // full string - About screen and pause box (have room)
+#define PLUGIN_TAG "b170"             // compact tag - cramped menu title bar
 
 static Handle   thread;
 static Handle   onProcessExitEvent, resumeExitEvent;
@@ -3607,7 +3607,7 @@ static void ToolAbout(void)
                 for (int a = 0; a < 4; ++a) CFill(WIN_X + WIN_W - 16 - a, top + 3 + a, 1 + 2*a, 1, GOLD);
             if (scroll + vis < N)                    // down arrow (more below)
                 for (int a = 0; a < 4; ++a) CFill(WIN_X + WIN_W - 16 - a, footY - 6 - a, 1 + 2*a, 1, GOLD);
-            CText6Btn(x, footY, "{D-Pad} scroll    {B} back", INK_DIM);
+            CText6Btn(x, footY, "{DP} scroll    {B} back", INK_DIM);
             Present(); Present();
             redraw = 0;
         }

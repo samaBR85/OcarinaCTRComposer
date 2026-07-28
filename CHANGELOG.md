@@ -7,11 +7,13 @@ as the record of how many iterations went into each release.
 
 ---
 
-## Unreleased · builds 91–168
+## Unreleased · builds 91–170
 
 A long polish + content pass on top of the build-90 baseline.
 
-### Fixes & About (builds 165–168)
+### Fixes & About (builds 165–170)
+- **Fixed** the About screen's footer literally printing `{D-Pad}` instead of the D-pad icon — it
+  now uses the same `{DP}` glyph token as every other footer in the plugin.
 - **Checklist auto-fill now syncs to the loaded save** instead of only ever adding. Switching from a
   100% save to a lesser one (or vice-versa) now self-corrects on open — it removes auto-marks the
   current save doesn't confirm and keeps your manual checks; the result shows `+added -removed`.
