@@ -19,8 +19,8 @@
 // Public release version + build counter. Bump the build number every build (the tag is the
 // on-screen confirmation that the newest .3gx is loaded); the build count also doubles as the
 // "many iterations" badge. Keep the two "90"s in sync.
-#define PLUGIN_VER "v1.0.0 build 170" // full string - About screen and pause box (have room)
-#define PLUGIN_TAG "b170"             // compact tag - cramped menu title bar
+#define PLUGIN_VER "v1.0.1 build 171" // full string - About screen and pause box (have room)
+#define PLUGIN_TAG "b171"             // compact tag - cramped menu title bar
 
 static Handle   thread;
 static Handle   onProcessExitEvent, resumeExitEvent;
@@ -240,6 +240,32 @@ static void BlitTopRect(const FbInfo *f, int x0, int y0, int w, int h)
     for (int x = x0; x < x0 + w; ++x)
         for (int y = y0; y < y0 + h; ++y)
             FbWritePx(f, x, y, CPix(x, y), TOP_H);
+}
+
+// Which buffer the top screen was displaying when we took over. Present() flips this register to
+// show OUR frame; nothing else ever puts it back, so the plugin has to.
+static u32 g_lcdSelSaved = 0;
+static int g_lcdSelValid = 0;
+
+// Call when the overlay takes the top screen, BEFORE the first Present().
+static void TopTakeOver(void)
+{
+    if (g_lcdSelValid) return;              // nested (quick menu -> menu): keep the outermost save
+    g_lcdSelSaved = REG32(LCD_TOP + LCD_SELECT) & 1;
+    g_lcdSelValid = 1;
+}
+
+// Call when handing the screen back to the game, right before ResumeGame().
+//
+// WHY THIS EXISTS: the bottom screen draws straight into the visible buffer, so restoring its
+// pixels is enough. The top does NOT - Present() writes the hidden buffer and flips this register.
+// Leave it flipped and the LCD keeps scanning out our frame: the game runs (bottom screen returns,
+// audio plays) while the top stays frozen on the last menu frame.
+static void TopRelease(void)
+{
+    if (!g_lcdSelValid) return;
+    REG32(LCD_TOP + LCD_SELECT) = g_lcdSelSaved;
+    g_lcdSelValid = 0;
 }
 
 static void Present(void)
@@ -779,10 +805,9 @@ static const SceneInfo *SceneLookup(u8 scene)
 static void WpName(int s, char *buf, int cap)
 {
     const SceneInfo *si = (s >= 0 && s < 9 && g_wp[s].valid) ? SceneLookup(g_wp[s].scene) : 0;
-    if (!si) { siprintf(buf, "Slot %d", s + 1); return; }
-    if (si->dungeon) siprintf(buf, "%d. %s R%d", s + 1, si->name, g_wp[s].room);
-    else             siprintf(buf, "%d. %s", s + 1, si->name);
-    (void)cap;
+    if (!si) { sniprintf(buf, (size_t)cap, "Slot %d", s + 1); return; }
+    if (si->dungeon) sniprintf(buf, (size_t)cap, "%d. %s R%d", s + 1, si->name, g_wp[s].room);
+    else             sniprintf(buf, (size_t)cap, "%d. %s", s + 1, si->name);
 }
 
 // Perform the warp. entrance 0xFFFF = "reload current scene" (uses the live entrance index).
@@ -911,7 +936,7 @@ static int OneShot(int id)
             g_wp[s].valid    = 1;
             g_wpDirty = 1;
             char nm[48]; WpName(s, nm, sizeof nm);   // "N: <area>" now that scene is captured
-            siprintf(g_wpMsg, "%s set", nm);
+            sniprintf(g_wpMsg, sizeof g_wpMsg, "%s set", nm);
             g_oneShotMsg = g_wpMsg;
             return 1;
         }
@@ -961,6 +986,17 @@ static u32 ARepeat(u32 pad, u32 *prev, int *hold)
     else *hold = 0;                          // direction changed or released -> restart the delay
     *prev = pad;
     return down;
+}
+
+// Wait for buttons to be physically released before handing control back to the game. The game is
+// paused while a plugin screen is up; the instant it resumes it reads the live pad, so a still-held
+// B/SELECT would fire in-game (B = sword swing). Capped (~2s) so a stuck pad can never hang the
+// console with the game paused - which presents as a dead 3DS. Every wait-for-release in the plugin
+// must go through here; a bare `while (HID_PAD)` on the raw hardware register can spin forever.
+static void DrainButtons(u32 mask)
+{
+    for (int i = 0; i < 125 && (HID_PAD & mask); ++i)
+        svcSleepThread(16 * 1000 * 1000);
 }
 
 // Continuous cheats: applied every tick while the menu is CLOSED (game running).
@@ -1393,28 +1429,28 @@ static void FavSave(void)
         if (!favorite[c]) continue;
         const char *lbl = LabelForCheat(c);
         if (!lbl) continue;
-        char line[80]; int n = siprintf(line, "%s\n", lbl);
+        char line[80]; int n = sniprintf(line, sizeof line, "%s\n", lbl);
         FSFILE_Write(f, &wrote, off, line, (u32)n, FS_WRITE_FLUSH); off += wrote;
     }
     // teleport favorites: '@'-prefixed, keyed by the warp's stable English name
     for (int wpi = 0; wpi < NUM_WARPS; ++wpi)
     {
         if (!warpFav[wpi]) continue;
-        char line[80]; int n = siprintf(line, "@%s\n", warps[wpi].name);
+        char line[80]; int n = sniprintf(line, sizeof line, "@%s\n", warps[wpi].name);
         FSFILE_Write(f, &wrote, off, line, (u32)n, FS_WRITE_FLUSH); off += wrote;
     }
     // folder favorites: '#'-prefixed, keyed by the folder's stable English title
     for (int fi = 0; fi < NUM_FOLDERS; ++fi)
     {
         if (!folderFav[fi]) continue;
-        char line[80]; int n = siprintf(line, "#%s\n", folders[fi].title);
+        char line[80]; int n = sniprintf(line, sizeof line, "#%s\n", folders[fi].title);
         FSFILE_Write(f, &wrote, off, line, (u32)n, FS_WRITE_FLUSH); off += wrote;
     }
     // tool favorites: '&'-prefixed, keyed by the tool's stable English name
     for (int ti = 0; ti < NUM_TOOLS; ++ti)
     {
         if (!toolFav[ti]) continue;
-        char line[80]; int n = siprintf(line, "&%s\n", kToolKeys[ti]);
+        char line[80]; int n = sniprintf(line, sizeof line, "&%s\n", kToolKeys[ti]);
         FSFILE_Write(f, &wrote, off, line, (u32)n, FS_WRITE_FLUSH); off += wrote;
     }
     FSFILE_SetSize(f, off);
@@ -1538,6 +1574,16 @@ static u8 CBG[3]    = { 70, 55, 34 };
 #define GOLD     CGOLD[0],  CGOLD[1],  CGOLD[2]
 #define GREEN_ON CGREEN[0], CGREEN[1], CGREEN[2]
 #define BG       CBG[0],    CBG[1],    CBG[2]
+
+// Expand a theme color ARRAY into the r,g,b argument triple. Use this - never the macros above -
+// whenever the color is chosen by a condition.
+//
+// WHY: `on ? GREEN_ON : INK` reads correctly and compiles silently, but it is wrong. `?:` binds
+// tighter than `,`, and a comma expression is legal as the middle operand, so it expands to
+//     (on ? (CGREEN[0], CGREEN[1], CGREEN[2]) : CINK[0]),  CINK[1],  CINK[2]
+// i.e. red = CGREEN[2] when on, and green/blue ALWAYS come from INK. An "on" row rendered
+// (120,240,216) cyan instead of (140,236,120) green. Select the array first, expand it once.
+#define RGB3(c)  (c)[0], (c)[1], (c)[2]
 
 // Some themes have a light window bg; hardcoded light text then vanishes. Pick text
 // colors from the bg luminance so overlays (e.g. the quick menu) stay readable everywhere.
@@ -2491,7 +2537,7 @@ static void DrawMenuItem(const Item *it, int x, int y, int cellW, int selected)
         int fav = favorite[it->cheat];
         CheckBoxIcon(x, y + 1, on);
         DrawSprite(x + 17, y - 1, adult ? 0x3B : 0x3C, 0); // dynamic: Kokiri Sword (->child) / Master Sword (->adult)
-        CTextClipBtn(x + 37, y - 1, adult ? T("Child Link") : T("Adult Link"), cellW - 53 - (fav ? 12 : 0), on ? GREEN_ON : INK, 0);
+        CTextClipBtn(x + 37, y - 1, adult ? T("Child Link") : T("Adult Link"), cellW - 53 - (fav ? 12 : 0), RGB3(on ? CGREEN : CINK), 0);
         if (fav) StarIcon(x + cellW - 12, y + 3);
     }
     else if (it->cheat == CH_WP_SLOT) // cycler: reticle + the active slot's auto-name ("N: Area")
@@ -2529,14 +2575,14 @@ static void DrawMenuItem(const Item *it, int x, int y, int cellW, int selected)
     {
         int on = cheatState[it->cheat] || flashCheat == it->cheat;
         CheckBoxIcon(x, y + 1, on);
-        CTextClipBtn(x + 20, y - 1, T(it->label), cellW - 26, on ? GREEN_ON : INK, 0);
+        CTextClipBtn(x + 20, y - 1, T(it->label), cellW - 26, RGB3(on ? CGREEN : CINK), 0);
     }
     else
     {
         int on = cheatState[it->cheat] || flashCheat == it->cheat;
         CheckBoxIcon(x, y + 1, on);
         DrawCheatIcon(x + 17, y - 1, it->cheat);
-        CTextClipBtn(x + 37, y - 1, T(it->label), cellW - 53, on ? GREEN_ON : INK, 0);
+        CTextClipBtn(x + 37, y - 1, T(it->label), cellW - 53, RGB3(on ? CGREEN : CINK), 0);
         if (flashCheat == it->cheat)
         {
             int fx = x + cellW - 6 - C6Width(flashMsg);
@@ -2701,6 +2747,11 @@ static int g_quitToGame = 0;
 // If we exited to the game from inside a tool, remember which one so the next
 // SELECT jumps straight back into it (not the Tools folder). -1 = none.
 static int g_resumeTool = -1;
+// Set when RunMenu() is entered straight from the quick menu. It means the game has NOT drawn a
+// frame since we last painted the screen, so GrabFb() would capture our own quick-menu panel and
+// bake it into the backdrop - the menu then renders over a photo of itself, and every reopen
+// stacks another copy.
+static int g_qmHandoff = 0;
 
 static void InfoBox(const Item *it)
 {
@@ -2788,7 +2839,7 @@ static void InfoBox(const Item *it)
         if (pad & ~prev) { if (pad & BUTTON_SELECT) g_quitToGame = 1; break; }
         prev = pad;
     }
-    while (HID_PAD) svcSleepThread(10 * 1000 * 1000);
+    DrainButtons(~0u); // capped: a stuck pad must not hang the console with the game paused
 }
 
 // Picker list UI (bottle contents, inventory item). Returns after A (write) or B (cancel).
@@ -2917,9 +2968,6 @@ static int HidTouch(int *px, int *py)
     if (py) *py = (int)((packed >> 16) & 0xFFFF);
     return valid != 0;
 }
-
-// after a keypad closes, repaint the menu's bottom-screen legend
-static void ToolBottomLegend(void) { ComposeBottom(); BotBlitComposeBoth(); }
 
 // hit-test a touch against a key rect
 static int KbHit(int tx, int ty, int x, int y, int w, int h)
@@ -3294,9 +3342,9 @@ static void SearchDrawResults(int scroll, int cursor)
     ComposeBackdrop();
     CText(WIN_X + 12, WIN_Y + 6, T("Cheat Search"), GOLD, 1);
     char hit[48];
-    if (!g_searchStarted) siprintf(hit, "%s", T("no search"));
-    else if (g_unknownArmed) siprintf(hit, "Snapshot %luKB%s", (unsigned long)(g_snapUsed / 1024), g_capped ? "+" : "");
-    else siprintf(hit, "Step %d   Hits: %lu%s", g_step, (unsigned long)g_candCount, g_capped ? "+" : "");
+    if (!g_searchStarted) sniprintf(hit, sizeof hit, "%s", T("no search"));
+    else if (g_unknownArmed) sniprintf(hit, sizeof hit, "Snapshot %luKB%s", (unsigned long)(g_snapUsed / 1024), g_capped ? "+" : "");
+    else sniprintf(hit, sizeof hit, "Step %d   Hits: %lu%s", g_step, (unsigned long)g_candCount, g_capped ? "+" : "");
     CText6(WIN_X + WIN_W - 12 - C6Width(hit), WIN_Y + 9, hit, g_capped ? 233 : 196, g_capped ? 115 : 180, g_capped ? 107 : 150);
     CFill(WIN_X + 12, WIN_Y + 22, WIN_W - 24, 1, GOLD);
 
@@ -3402,11 +3450,11 @@ static void SearchDrawForm(void)
     int dimValue = (!ScanNeedsValue(g_scanType)) || (g_searchType == 1 && !g_searchStarted);
     int dims[5] = { locked, locked, locked, 0, dimValue };
     char val[5][40];
-    siprintf(val[0], "%s", T(REGION_NAME[g_memRegion]));
-    siprintf(val[1], "%s", T(SEARCHTYPE_NAME[g_searchType]));
+    sniprintf(val[0], sizeof val[0], "%s", T(REGION_NAME[g_memRegion]));
+    sniprintf(val[1], sizeof val[1], "%s", T(SEARCHTYPE_NAME[g_searchType]));
     siprintf(val[2], "%d Bytes  (%d-bit)", g_searchWidth, g_searchWidth * 8);
-    siprintf(val[3], "%s", T(SCAN_NAME[g_scanType]));
-    if (g_searchType == 1 && !g_searchStarted) siprintf(val[4], "%s", T("(not needed)"));
+    sniprintf(val[3], sizeof val[3], "%s", T(SCAN_NAME[g_scanType]));
+    if (g_searchType == 1 && !g_searchStarted) sniprintf(val[4], sizeof val[4], "%s", T("(not needed)"));
     else if (dimValue)                         siprintf(val[4], "--");
     else siprintf(val[4], "%lu  (0x%lX)", (unsigned long)g_searchValue, (unsigned long)g_searchValue);
 
@@ -3601,7 +3649,7 @@ static void ToolAbout(void)
             for (int i = 0; i < vis && scroll + i < N; ++i)
             {
                 const char *s = lines[scroll + i].s;
-                if (s[0]) CText6(x, top + i * 12, s, lines[scroll + i].gold ? GOLD : INK_DIM);
+                if (s[0]) CText6(x, top + i * 12, s, RGB3(lines[scroll + i].gold ? CGOLD : CDIM));
             }
             if (scroll > 0)                          // up arrow (more above)
                 for (int a = 0; a < 4; ++a) CFill(WIN_X + WIN_W - 16 - a, top + 3 + a, 1 + 2*a, 1, GOLD);
@@ -3618,7 +3666,7 @@ static void ToolAbout(void)
         if (down & BUTTON_SELECT) { g_quitToGame = 1; break; }
         if (down & (BUTTON_B | BUTTON_A)) break;
     }
-    while (HID_PAD) svcSleepThread(10 * 1000 * 1000);
+    DrainButtons(~0u); // capped: a stuck pad must not hang the console with the game paused
 }
 
 // ---- RAM Dumper ----
@@ -3654,9 +3702,9 @@ static void RamDumpDrawTop(const char *status, u8 sr, u8 sg, u8 sb, int pct)
     CFill(WIN_X + 12, WIN_Y + 22, WIN_W - 24, 1, GOLD);
     u32 size = DUMP_SIZES[g_dumpSizeIdx];
     int x = WIN_X + 16, y = WIN_Y + 30; char l[72];
-    siprintf(l, "%s  0x%08lX", T("Start:"), (unsigned long)g_dumpStart);          CText6(x, y, l, INK); y += 15;
-    siprintf(l, "%s  0x%08lX", T("End:"), (unsigned long)(g_dumpStart + size)); CText6(x, y, l, INK); y += 15;
-    siprintf(l, "%s  %s", T("Size:"), DUMP_SIZE_NM[g_dumpSizeIdx]);              CText6(x, y, l, INK); y += 19;
+    sniprintf(l, sizeof l, "%s  0x%08lX", T("Start:"), (unsigned long)g_dumpStart);          CText6(x, y, l, INK); y += 15;
+    sniprintf(l, sizeof l, "%s  0x%08lX", T("End:"), (unsigned long)(g_dumpStart + size)); CText6(x, y, l, INK); y += 15;
+    sniprintf(l, sizeof l, "%s  %s", T("Size:"), DUMP_SIZE_NM[g_dumpSizeIdx]);              CText6(x, y, l, INK); y += 19;
     CText6(x, y, T("Saves to:"), INK_DIM); y += 13;
     CText6(x, y, DUMP_DIR "/", INK_DIM); y += 13;
     CText6(x, y, "  dump_<start>_<size>.bin", INK_DIM); y += 19;
@@ -3694,7 +3742,7 @@ static void RamDumpDrawForm(void)
     const char *labels[2] = { "Start Addr", "Size" };
     char val[2][40];
     siprintf(val[0], "0x%08lX", (unsigned long)g_dumpStart);
-    siprintf(val[1], "%s", DUMP_SIZE_NM[g_dumpSizeIdx]);
+    sniprintf(val[1], sizeof val[1], "%s", DUMP_SIZE_NM[g_dumpSizeIdx]);
     for (int i = 0; i < 2; ++i)
     {
         int y = fy + i * (fh + g);
@@ -3733,7 +3781,7 @@ static void DoDump(const char **status, u8 *sr, u8 *sg, u8 *sb)
     if (!fsReady)   { *status = "SD card not available"; *sr=236; *sg=140; *sb=120; return; }
     FSUSER_CreateDirectory(cfgArchive, fsMakePath(PATH_ASCII, DUMP_DIR), 0); // ok if it exists
     char path[100];
-    siprintf(path, "%s/dump_%08lX_%luK.bin", DUMP_DIR,
+    sniprintf(path, sizeof path, "%s/dump_%08lX_%luK.bin", DUMP_DIR,
              (unsigned long)g_dumpStart, (unsigned long)(span / 1024));
     Handle fh;
     if (R_FAILED(FSUSER_OpenFile(&fh, cfgArchive, fsMakePath(PATH_ASCII, path),
@@ -3909,7 +3957,7 @@ static void HexDrawForm(void)
     char val[2][40];
     siprintf(val[0], "0x%08lX", (unsigned long)g_hexCursor);
     if (MemReadable(g_hexCursor)) siprintf(val[1], "0x%02X  (%u)", R8(g_hexCursor), R8(g_hexCursor));
-    else                          siprintf(val[1], "%s", T("-- (unreadable)"));
+    else                          sniprintf(val[1], sizeof val[1], "%s", T("-- (unreadable)"));
     for (int i = 0; i < 2; ++i)
     {
         int y = fy + i * (fh + g);
@@ -4707,7 +4755,7 @@ static void ChkWrapBalanced(const char *s, int w, char *line1, char *line2, ChkM
 
     char joined[64]; joined[0] = 0;
     for (int i = 0; i < nmtok; ++i)
-    { char c[64]; if (joined[0]) siprintf(c, "%s %s", joined, mtok[i]); else siprintf(c, "%s", mtok[i]); strcpy(joined, c); }
+    { char c[64]; if (joined[0]) sniprintf(c, sizeof c, "%s %s", joined, mtok[i]); else sniprintf(c, sizeof c, "%s", mtok[i]); strcpy(joined, c); }
     if (measure(joined) <= w) { strcpy(line1, joined); return; } // fits on one line - don't split it
 
     int bestSplit = -1, bestMax = 0x7FFFFFFF;
@@ -4715,7 +4763,7 @@ static void ChkWrapBalanced(const char *s, int w, char *line1, char *line2, ChkM
     for (int k = 0; k < nmtok; ++k)
     {
         char cand[64];
-        if (cur[0]) siprintf(cand, "%s %s", cur, mtok[k]); else siprintf(cand, "%s", mtok[k]);
+        if (cur[0]) sniprintf(cand, sizeof cand, "%s %s", cur, mtok[k]); else sniprintf(cand, sizeof cand, "%s", mtok[k]);
         strcpy(cur, cand);
         int w1 = measure(cur);
         if (w1 > w) break; // line1 can't extend this far and still fit
@@ -4724,7 +4772,7 @@ static void ChkWrapBalanced(const char *s, int w, char *line1, char *line2, ChkM
         {
             char rest[64]; rest[0] = 0;
             for (int j = k + 1; j < nmtok; ++j)
-            { char c2[64]; if (rest[0]) siprintf(c2, "%s %s", rest, mtok[j]); else siprintf(c2, "%s", mtok[j]); strcpy(rest, c2); }
+            { char c2[64]; if (rest[0]) sniprintf(c2, sizeof c2, "%s %s", rest, mtok[j]); else sniprintf(c2, sizeof c2, "%s", mtok[j]); strcpy(rest, c2); }
             w2 = measure(rest);
         }
         int m = w1 > w2 ? w1 : w2;
@@ -4733,9 +4781,9 @@ static void ChkWrapBalanced(const char *s, int w, char *line1, char *line2, ChkM
     if (bestSplit < 0) bestSplit = 1; // even the first token alone overflows - force it anyway
 
     for (int i = 0; i < bestSplit; ++i)
-    { char c[64]; if (line1[0]) siprintf(c, "%s %s", line1, mtok[i]); else siprintf(c, "%s", mtok[i]); strcpy(line1, c); }
+    { char c[64]; if (line1[0]) sniprintf(c, sizeof c, "%s %s", line1, mtok[i]); else sniprintf(c, sizeof c, "%s", mtok[i]); strcpy(line1, c); }
     for (int i = bestSplit; i < nmtok; ++i)
-    { char c[64]; if (line2[0]) siprintf(c, "%s %s", line2, mtok[i]); else siprintf(c, "%s", mtok[i]); strcpy(line2, c); }
+    { char c[64]; if (line2[0]) sniprintf(c, sizeof c, "%s %s", line2, mtok[i]); else sniprintf(c, sizeof c, "%s", mtok[i]); strcpy(line2, c); }
 }
 #define CHK_BIGLINE_H 13 // stacked-line pitch for 2-line system-font labels (hub grid/buttons)
 // Left-aligned 2-line wrap, system font, vertically centered within box height h (paired with a
@@ -4790,7 +4838,7 @@ static void ChecklistSave(void)
         {
             u8 s = chkState[c][i]; if (!s) continue;
             const char *tag = (s == 1) ? "A" : (s == 2) ? "M" : "S";
-            int n = siprintf(buf, "STATE %s %s\n", CHK_CATS[c].items[i].key, tag);
+            int n = sniprintf(buf, sizeof buf, "STATE %s %s\n", CHK_CATS[c].items[i].key, tag);
             FSFILE_Write(f, &wrote, off, buf, (u32)n, FS_WRITE_FLUSH); off += wrote;
         }
     FSFILE_SetSize(f, off);
@@ -5251,7 +5299,7 @@ static void ToolChecklist(void)
             CFillBlend(0, 0, BOT_W, BOT_H, BG, 230);
             CFill(6, 4, BOT_W - 12, 1, GOLD); CFill(6, BOT_H - 6, BOT_W - 12, 1, GOLD);
             const char *fl = filterMode == 0 ? "All" : filterMode == 1 ? "Todo" : "Done";
-            char flbuf[24]; siprintf(flbuf, "%s %d/%d", fl, done, cc->count);
+            char flbuf[24]; sniprintf(flbuf, sizeof flbuf, "%s %d/%d", fl, done, cc->count);
             CText6(CHKB_L, 8, "<", INK_DIM);
             CTextClip(20, 6, cc->name, 190, GOLD, 0);
             CText6(CHKB_R - 8 - C6Width(flbuf) - 10, 8, flbuf, INK_DIM);
@@ -5378,14 +5426,14 @@ static void ThemePicker(void)
                 CFill(sx + 9,  y + 3, 8, 9, t->gold[0], t->gold[1], t->gold[2]);
                 CFill(sx + 18, y + 3, 8, 9, t->ink[0], t->ink[1], t->ink[2]);
                 CFill(sx + 27, y + 3, 8, 9, t->green[0], t->green[1], t->green[2]);
-                CText(sx + 40, y - 1, t->name, fi == sel ? GREEN_ON : INK, 0);
+                CText(sx + 40, y - 1, t->name, RGB3(fi == sel ? CGREEN : CINK), 0);
             }
             if (scroll > 0)
                 for (int a = 0; a < 4; ++a) CFill(WIN_X + WIN_W - 14 - a, ROW_Y0 + 3 + a, 1 + 2 * a, 1, GOLD);
             if (scroll + MAX_ROWS < fn)
                 for (int a = 0; a < 4; ++a) CFill(WIN_X + WIN_W - 14 - a, ROW_Y0 + MAX_ROWS * ROW_H - 4 - a, 1 + 2 * a, 1, GOLD);
             const char *fmode = themeFilt == 1 ? T("{Y} light") : themeFilt == 2 ? T("{Y} dark") : T("{Y} all");
-            char leg[96]; siprintf(leg, "%s  %s  %s  %s", T("{A} apply"), T("{B} cancel"), T("{L}/{R} page"), fmode);
+            char leg[96]; sniprintf(leg, sizeof leg, "%s  %s  %s  %s", T("{A} apply"), T("{B} cancel"), T("{L}/{R} page"), fmode);
             CText6Btn(WIN_X + 12, WIN_Y + WIN_H - 16, leg, INK_DIM);
             Present(); Present();
             ComposeBottom(); BotBlitComposeBoth(); // live-recolor the bottom screen with the previewed theme
@@ -5451,15 +5499,6 @@ static void LanguagePicker(void)
             return;
         }
     }
-}
-
-// Before resuming the game, wait for the buttons that closed the menu to be physically released.
-// The game is paused while the menu is open; the instant it resumes it reads the live pad, so a
-// still-held B/SELECT would fire in-game (B = sword swing). Capped (~2s) so a stuck pad can't hang.
-static void DrainButtons(u32 mask)
-{
-    for (int i = 0; i < 125 && (HID_PAD & mask); ++i)
-        svcSleepThread(16 * 1000 * 1000);
 }
 
 // Flip the age that applies on the next load. In an overworld scene that has BOTH age setups it
@@ -5540,12 +5579,21 @@ static void RunMenu(void)
     g_quitToGame = 0; // fresh; a sub-loop sets this to request "exit to game"
 
     PauseGame();
+    TopTakeOver(); // remember which buffer the game was showing, so we can hand it back
 
     BotGrab();
     ComposeBottom();
     BotBlitComposeBoth();
 
-    GrabFb();
+    if (g_qmHandoff)
+    {
+        g_qmHandoff = 0;
+        RestoreTopBackdrop(); // savedTop = the real game frame, saved before the quick menu painted
+    }
+    else
+    {
+        GrabFb();
+    }
     DimOutsideWindow();
     CaptureTopBackdrop(); // save clean backdrop so top redraws stay bleed-free
 
@@ -5559,7 +5607,7 @@ static void RunMenu(void)
         Present(); Present();
     }
 
-    while (HID_PAD & BUTTON_SELECT) svcSleepThread(10 * 1000 * 1000);
+    DrainButtons(BUTTON_SELECT); // capped: a stuck SELECT must not hang the console
     u32 prev = HID_PAD;
 
     // First ever launch (no Settings.cfg): ask for a language before anything else.
@@ -5631,7 +5679,8 @@ static void RunMenu(void)
             else
             {
             if (down & (BUTTON_RIGHT | BUTTON_R1)) { int c = cursor; for (int k = 0; k < MAX_ROWS && c + 1 < fld->count; ++k) c++;
-                                      while (c < fld->count && NavSkip(folderIdx, c)) c++; if (c >= fld->count) c = cursor;
+                                      while (c < fld->count && NavSkip(folderIdx, c)) c++;
+                                      if (c >= fld->count) c = cursor;
                                       if (c != cursor) { cursor = c; changed = 1; } }
             if (down & (BUTTON_LEFT | BUTTON_L1))  { int c = cursor; for (int k = 0; k < MAX_ROWS && c > 0; ++k) c--;
                                       while (c > 0 && NavSkip(folderIdx, c)) c--;
@@ -5724,7 +5773,7 @@ static void RunMenu(void)
             }
             else if (OneShot(it->cheat))
             {
-                char sfx[48]; siprintf(sfx, ": %s", g_oneShotMsg);
+                char sfx[48]; sniprintf(sfx, sizeof sfx, ": %s", g_oneShotMsg);
                 QueueToastRaw(T(it->label), sfx);
                 flashMsg = g_oneShotMsg;
                 flashCheat = it->cheat; flashTicks = 50; // ~0.8s feedback
@@ -5807,6 +5856,7 @@ static void RunMenu(void)
     menuDepth = depth; menuFolder = folderIdx; menuCursor = cursor; menuScroll = scroll;
 
     BotRestoreBoth();
+    TopRelease(); // hand the top screen back too, else it stays frozen on our last frame
     DrainButtons(BUTTON_B | BUTTON_SELECT | BUTTON_A); // let go of B before the game sees it (else: sword swing)
     ResumeGame();
 
@@ -5863,6 +5913,7 @@ static void QuickMenu(void)
     SysFontInit();   // idempotent - ensures the system font is loaded even when the quick menu is
                      // the FIRST thing opened after boot (else info boxes fall back to the tiny font)
     PauseGame();
+    TopTakeOver();
     GrabFb();
     CaptureTopBackdrop(); // save the game frame so we can repaint cleanly (e.g. after the X info box)
 
@@ -5889,7 +5940,7 @@ static void QuickMenu(void)
     if (w > 384 - 16) w = 384 - 16;
     int h = 20 + rows * QM_RH + 6;
 
-    while (HID_PAD & BUTTON_SELECT) svcSleepThread(10 * 1000 * 1000);
+    DrainButtons(BUTTON_SELECT); // capped: a stuck SELECT must not hang the console
     u32 prev = HID_PAD;
     static int qmLastCursor = 0;              // reopen on the entry you last had selected
     int cursor = (qmLastCursor < n) ? qmLastCursor : (n > 0 ? n - 1 : 0);
@@ -6021,7 +6072,7 @@ static void QuickMenu(void)
             }
             else if (OneShot(ent[cursor].cheat))
             {
-                char sfx[48]; siprintf(sfx, ": %s", g_oneShotMsg);
+                char sfx[48]; sniprintf(sfx, sizeof sfx, ": %s", g_oneShotMsg);
                 QueueToastRaw(ent[cursor].label, sfx);
                 flashMsg = g_oneShotMsg;
                 flashCheat = ent[cursor].cheat; flashTicks = 50;
@@ -6060,6 +6111,10 @@ static void QuickMenu(void)
     qmLastCursor = cursor; // remember where we were, for the next open
     flashCheat = -1; flashTicks = 0;
     DrainButtons(BUTTON_B | BUTTON_SELECT | BUTTON_A);
+    // Only hand back if we're actually going to the game. When a favourite folder or tool was
+    // picked, RunMenu() takes over next - releasing here would show one game frame just to
+    // recapture it, which is exactly the flicker this hand-off exists to avoid.
+    if (g_openFolder < 0 && g_openTool < 0) TopRelease();
     ResumeGame();
     if (favDirty)  { FavSave(); favDirty = 0; }  // persist changes made from the quick menu too
     if (g_wpDirty) { WpSave();  g_wpDirty = 0; }
@@ -6068,6 +6123,7 @@ static void QuickMenu(void)
 // ===================== Thread / entry =====================
 void ThreadMain(void *arg)
 {
+    (void)arg; // the 3gx loader passes no argument; the signature is fixed by svcCreateThread
     InitThreadVars(); // must run before any newlib/hid/fs call on this thread
 
     // Make the whole game process RWX up front, exactly like CTRPluginFramework does at init.
@@ -6113,6 +6169,7 @@ void ThreadMain(void *arg)
                 { const Folder *nf = &folders[fld]; // land on the first selectable row
                   while (menuCursor < nf->count && IS_SEP(&nf->items[menuCursor])) menuCursor++;
                   if (menuCursor >= nf->count) menuCursor = 0; }
+                g_qmHandoff = 1;   // the quick menu is still on screen: don't recapture it as backdrop
                 RunMenu();
                 menuDepth = sD; menuFolder = sF; menuCursor = sC; menuScroll = sS;
                 prev = HID_PAD;
@@ -6122,7 +6179,11 @@ void ThreadMain(void *arg)
                 int t = g_openTool; g_openTool = -1;
                 int sD = menuDepth, sF = menuFolder, sC = menuCursor, sS = menuScroll;
                 g_resumeTool = t;                    // RunMenu's resume path runs the tool with full setup
-                menuDepth = 0; menuFolder = 0; menuCursor = 0; menuScroll = 0; // land on HOME after the tool
+                menuDepth = 0; menuFolder = 0; menuScroll = 0; menuCursor = 0; // land on HOME after the tool
+                { const Folder *nf = &folders[F_ROOT]; // first selectable row, not a separator
+                  while (menuCursor < nf->count && IS_SEP(&nf->items[menuCursor])) menuCursor++;
+                  if (menuCursor >= nf->count) menuCursor = 0; }
+                g_qmHandoff = 1;   // the quick menu is still on screen: don't recapture it as backdrop
                 RunMenu();
                 menuDepth = sD; menuFolder = sF; menuCursor = sC; menuScroll = sS;
                 prev = HID_PAD;

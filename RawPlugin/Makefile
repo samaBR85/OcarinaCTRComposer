@@ -19,7 +19,8 @@ SOURCES 	:= 	sources
 #---------------------------------------------------------------------------------
 ARCH		:=	-march=armv6k -mlittle-endian -mtune=mpcore -mfloat-abi=hard 
 
-CFLAGS		:=	-Os -mword-relocations \
+# -Wno-main: a plugin's main() is an entry point called by the 3gx loader, not C's main(int,char**).
+CFLAGS		:=	-Os -mword-relocations -Wall -Wextra -Wno-main \
 				-fomit-frame-pointer -ffunction-sections -fno-strict-aliasing \
 				$(ARCH)
 

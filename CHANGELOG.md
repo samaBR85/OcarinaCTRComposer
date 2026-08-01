@@ -7,9 +7,38 @@ as the record of how many iterations went into each release.
 
 ---
 
-## Unreleased · builds 91–170
+## Unreleased · builds 91–171
 
 A long polish + content pass on top of the build-90 baseline.
+
+### Engine fixes (build 171)
+
+Four defects inherited from the CTRComposer engine — present since its first version, so they
+affect every plugin built on it. All four diagnosed from real hardware use and confirmed on
+console. Warnings (`-Wall -Wextra`) were switched on in the process, which surfaced a fifth.
+
+- **Fixed the top screen freezing when you leave the plugin.** `Present()` flips the LCD's
+  buffer-select register to show our frame, and nothing ever flipped it back — so on exit the LCD
+  kept scanning out the plugin's last frame while the game genuinely resumed underneath (bottom
+  screen returned, audio played, top stayed frozen). The plugin now saves that register on take-over
+  and restores it before handing control back. Reachable by starring a **tool** and launching it
+  from the quick menu.
+- **Fixed the quick menu becoming the menu's backdrop.** Coming from the quick menu, the backdrop
+  grab ran microseconds after resume — before the game had drawn anything — so it captured the quick
+  menu itself and baked it in, stacking another copy on every reopen. That path now reuses the real
+  game frame saved beforehand.
+- **Button waits can no longer hang the console.** Four wait-for-release loops read the raw HID
+  register with no bound; a stuck pad would spin forever *with the game paused*, which presents as a
+  dead 3DS. All four now go through the existing capped helper (~2s).
+- **Translated text can no longer overflow the stack.** Strings loaded from SD language files (and
+  author-written labels) were formatted into fixed-size stack buffers with unbounded `siprintf` —
+  worst case concatenated four translations into 96 bytes. All 31 such calls are now bounded
+  `sniprintf`. Also fixed `WpName()`, which took a capacity argument and discarded it.
+- **Fixed enabled cheats rendering cyan instead of green, and the About screen's highlighted lines
+  rendering grey-green instead of gold.** `on ? GREEN_ON : INK` looks right and compiles silently,
+  but `?:` binds tighter than `,`: it expanded to `(on ? (r,g,b) : INK_r), INK_g, INK_b`, so red came
+  from the wrong channel and green/blue always came from `INK`. Colours are now selected as an array
+  and expanded once.
 
 ### Fixes & About (builds 165–170)
 - **Fixed** the About screen's footer literally printing `{D-Pad}` instead of the D-pad icon — it
