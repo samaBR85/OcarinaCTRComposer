@@ -1,0 +1,18 @@
+static const char *GUIDE_CREDITS =
+    "This walkthrough is included with credit to the people who made it.\n"
+    "\n"
+    "Walkthrough text:\n"
+    "  z64central.com\n"
+    "  (Zelda Ocarina 3D Help)\n"
+    "\n"
+    "Packaged for the CTRPF plugin by:\n"
+    "  LowEndC  (GBAtemp member)\n"
+    "  gbatemp.net/threads/422574\n"
+    "  post #500, Feb 2019\n"
+    "\n"
+    "Original OoT3D cheats plugin:\n"
+    "  Nanquitas (GBAtemp / GitHub)\n"
+    "\n"
+    "This build (OcarinaCTRComposer) reproduces the guide only to credit the\n"
+    "original authors. The Legend of Zelda and all game content are\n"
+    "(c) Nintendo. Fan project, non-commercial.";

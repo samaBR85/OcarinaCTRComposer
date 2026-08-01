@@ -99,6 +99,9 @@ $(OUTPUT).3gx : $(OFILES)
 	@echo creating $(notdir $@)
 	@3gxtool -s $(word 1, $^) $(TOPDIR)/$(PLGINFO) $@
 
+# Sem isto o make trata o .elf como intermediário descartável e o apaga assim que gera o .3gx.
+# Tools/fingerprint.sh precisa do .elf para ler os símbolos.
+.PRECIOUS: %.elf
 
 -include $(DEPENDS)
 
