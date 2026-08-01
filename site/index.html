@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>OcarinaCTRComposer — Cheats &amp; Tools Overlay for Ocarina of Time 3D</title>
+<meta name="description" content="A cheats + tools overlay for The Legend of Zelda: Ocarina of Time 3D on New 3DS. Teleport, self-naming waypoints, a 100% Checklist, Cheat Search, RAM Dumper, Hex Editor, and 26 themes — built on CTRComposer, a self-rendered .3gx engine with no game hooks." />
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+
+<!-- Open Graph / link-preview tags (WhatsApp, Telegram, Facebook, Discord, ...) -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://samabr85.github.io/OcarinaCTRComposer/" />
+<meta property="og:title" content="OcarinaCTRComposer — Cheats &amp; Tools Overlay for Ocarina of Time 3D" />
+<meta property="og:description" content="A cheats + tools overlay for The Legend of Zelda: Ocarina of Time 3D on New 3DS. Teleport, self-naming waypoints, a 100% Checklist, Cheat Search, RAM Dumper, Hex Editor, and 26 themes." />
+<meta property="og:image" content="https://samabr85.github.io/OcarinaCTRComposer/og-image.png" />
+<meta property="og:image:width" content="630" />
+<meta property="og:image:height" content="630" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://samabr85.github.io/OcarinaCTRComposer/og-image.png" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg0:#14110c; --bg1:#1e1912; --bg2:#241f18; --bg3:#2b241b;
+    --border:rgba(201,169,78,.32); --border-strong:rgba(201,169,78,.55);
+    --gold:#c9a94e; --gold-bright:#e7c85f;
+    --cream:#e9dcc0; --cream-dim:#b9a06a; --dim:#8a7d5e;
+    --green:#8fd17a; --blue:#7fa8d8; --red:#d88678;
+    --radius:10px; --font-display:'Cinzel',serif; --font-body:'Inter',sans-serif;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg0); color:var(--cream);
+    font-family:var(--font-body); line-height:1.65; font-size:16px;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{color:var(--gold-bright);}
+  /* NOTE: .wrap only ever sets horizontal padding, and section/.hero only ever set vertical padding
+     (via padding-top/-bottom, never the `padding` shorthand) — on purpose. Two same-specificity
+     classes on one element (e.g. <section class="wrap">) fighting over the `padding` shorthand
+     silently zeroes out whichever side loses the cascade; longhand properties on disjoint axes
+     can't collide, so this is the safe pattern anywhere .wrap combines with a section/hero rule. */
+  .wrap{max-width:1040px; margin:0 auto; padding-left:24px; padding-right:24px;}
+  h1,h2,h3{font-family:var(--font-display); font-weight:600; text-wrap:balance; margin:0 0 .5em; color:var(--cream);}
+  h1{font-size:clamp(2rem,5vw,2.9rem); font-weight:700; letter-spacing:.01em;}
+  h2{font-size:clamp(1.4rem,3vw,1.9rem); color:var(--gold-bright); margin-bottom:20px;}
+  h3{font-size:1.1rem; color:var(--cream);}
+  p{margin:0 0 1em; color:var(--cream); max-width:64ch;}
+  .dim{color:var(--cream-dim);}
+  .muted{color:var(--dim); font-size:.9rem;}
+  section{padding-top:56px; padding-bottom:56px; border-top:1px solid var(--border);}
+  section:first-of-type{border-top:none;}
+  .center{text-align:center;}
+  .center p{margin-left:auto; margin-right:auto;}
+
+  /* ---- nav ---- */
+  nav{position:sticky; top:0; z-index:20; background:rgba(20,17,12,.92); backdrop-filter:blur(6px); border-bottom:1px solid var(--border);}
+  nav .bar{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; row-gap:8px; padding:12px 24px; max-width:1040px; margin:0 auto;}
+  nav .brand{display:flex; align-items:center; gap:10px; font-family:var(--font-display); font-weight:600; color:var(--cream); text-decoration:none;}
+  nav .brand svg{width:28px; height:28px;}
+  nav .links{display:flex; gap:16px; row-gap:6px; font-size:.92rem; flex-wrap:wrap;}
+  nav .links a{color:var(--cream-dim); text-decoration:none;}
+  nav .links a:hover{color:var(--gold-bright);}
+
+  /* ---- hero ---- */
+  .hero{padding-top:72px; padding-bottom:24px; text-align:center;}
+  .hero .logo{width:96px; height:96px; margin:0 auto 20px;}
+  .hero-shot{
+    display:block; max-width:min(90%,340px); margin:24px auto 0; border-radius:12px;
+    border:1px solid var(--border-strong);
+  }
+  img.hero-shot{cursor:zoom-in;}
+  .hero-caption{max-width:none; margin:10px 0 0; font-size:.8rem; color:var(--dim);}
+  .badges{display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin:18px 0 24px;}
+  .badge{
+    border:1px solid var(--border-strong); border-radius:999px; padding:5px 14px;
+    font-size:.8rem; color:var(--cream-dim); letter-spacing:.02em;
+  }
+  .hero p.sub{font-size:1.1rem; max-width:52ch; margin:0 auto 28px; color:var(--cream-dim);}
+  /* Keep the italicized game title on one unbroken line once there's room (~600px); below that,
+     the phrase is wider than the viewport itself, so let it wrap normally rather than overflow. */
+  @media (min-width:620px){ .hero p.sub em{white-space:nowrap;} }
+  .cta-row{display:flex; gap:14px; justify-content:center; flex-wrap:wrap;}
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding:12px 24px; border-radius:var(--radius);
+    font-family:var(--font-body); font-weight:600; font-size:.95rem; text-decoration:none;
+    border:1px solid var(--border-strong); transition:transform .12s ease, background .12s ease;
+  }
+  .btn:hover{transform:translateY(-1px);}
+  .btn.primary{background:var(--gold); color:#1a1610; border-color:var(--gold);}
+  .btn.primary:hover{background:var(--gold-bright);}
+  .btn.ghost{background:var(--bg1); color:var(--cream);}
+  .btn.ghost:hover{background:var(--bg2);}
+  .stats-row{display:flex; gap:8px; justify-content:center; flex-wrap:wrap; margin:20px 0 0;}
+  .stats-row img{display:inline-block; height:20px;}
+  .support-line{max-width:none; margin:22px 0 10px; font-size:.85rem; color:var(--dim);}
+  .kofi-btn{display:inline-block; line-height:0;}
+  .kofi-btn img{height:28px;}
+
+  /* ---- lightbox (used by feature-card thumbnails) ---- */
+  #lightbox{
+    display:none; position:fixed; inset:0; z-index:50; background:rgba(10,8,5,.92);
+    align-items:center; justify-content:center; flex-direction:column; padding:32px;
+  }
+  #lightbox.open{display:flex;}
+  #lightbox img{max-width:min(90vw,520px); max-height:75vh; border-radius:10px; border:1px solid var(--border-strong);}
+  #lightbox-caption{color:var(--cream-dim); margin-top:14px; font-size:.9rem;}
+  #lightbox-close{
+    position:absolute; top:20px; right:24px; background:none; border:1px solid var(--border-strong);
+    color:var(--cream); width:36px; height:36px; border-radius:50%; font-size:1.3rem; cursor:pointer; line-height:1;
+  }
+
+  /* ---- feature grid: 3 per row, each card paired with its own screenshot ---- */
+  .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:32px;}
+  @media (max-width:820px){ .grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:560px){ .grid{grid-template-columns:1fr;} }
+  .card{
+    background:var(--bg1); border:1px solid var(--border); border-radius:12px; overflow:hidden;
+    display:flex; flex-direction:column;
+  }
+  .card img{width:100%; aspect-ratio:401/241; object-fit:cover; object-position:top; cursor:zoom-in;}
+  .card .card-body{padding:16px 20px 20px;}
+  .card h3{margin-bottom:8px;}
+  .card p{font-size:.92rem; color:var(--cream-dim); margin-bottom:0;}
+
+  /* ---- tools strip ---- */
+  .tools-strip{display:flex; flex-wrap:wrap; gap:12px; margin-top:28px;}
+  .tool-pill{
+    flex:1 1 160px; background:var(--bg1); border:1px solid var(--border); border-radius:var(--radius);
+    padding:14px 16px; font-size:.9rem;
+  }
+  .tool-pill b{display:block; color:var(--gold-bright); font-family:var(--font-display); font-weight:600; margin-bottom:4px;}
+
+  /* ---- install ---- */
+  .install-cols{display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:28px;}
+  @media (max-width:720px){ .install-cols{grid-template-columns:1fr;} }
+  .install-card{background:var(--bg1); border:1px solid var(--border); border-radius:12px; padding:24px;}
+  .install-card ol{margin:0; padding-left:1.2em; color:var(--cream); font-size:.95rem;}
+  .install-card li{margin-bottom:.6em;}
+  .install-card code{background:var(--bg2); border:1px solid var(--border); padding:2px 6px; border-radius:4px; font-size:.85em; color:var(--gold-bright); word-break:break-all;}
+  .qr-row{display:flex; align-items:center; gap:16px; margin-bottom:14px; flex-wrap:wrap;}
+  .qr-row p{margin:0; font-size:.92rem; color:var(--cream-dim); flex:1 1 200px; min-width:0;}
+  .qr-code{flex-shrink:0; background:#fff; padding:6px; border-radius:8px;}
+  .warn{
+    margin-top:16px; padding:12px 14px; border-left:3px solid var(--red); background:rgba(216,134,120,.08);
+    font-size:.88rem; color:var(--cream-dim); border-radius:0 6px 6px 0;
+  }
+
+  /* ---- credits ---- */
+  .credits-list{list-style:none; margin:24px 0 0; padding:0; display:grid; gap:10px;}
+  .credits-list li{
+    border-bottom:1px solid var(--border); padding-bottom:10px; font-size:.92rem; color:var(--cream-dim);
+  }
+  .credits-list b{color:var(--cream); font-weight:500;}
+
+  /* ---- footer ---- */
+  footer{padding:40px 0 60px; text-align:center;}
+  footer .links{display:flex; gap:18px; justify-content:center; flex-wrap:wrap; margin-bottom:20px; font-size:.9rem;}
+  footer .links a{color:var(--cream-dim); text-decoration:none;}
+  footer .links a:hover{color:var(--gold-bright);}
+  footer .disclaimer{max-width:56ch; margin:0 auto; color:var(--dim); font-size:.82rem;}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="bar">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 96 96" aria-hidden="true">
+        <rect x="2" y="2" width="92" height="92" rx="20" fill="#1e1912" stroke="#c9a94e" stroke-width="4"/>
+        <polygon points="48.00,16.00 57.18,25.83 70.63,25.37 70.17,38.82 80.00,48.00 70.17,57.18 70.63,70.63 57.18,70.17 48.00,80.00 38.82,70.17 25.37,70.63 25.83,57.18 16.00,48.00 25.83,38.82 25.37,25.37 38.82,25.83" fill="#c9a94e"/>
+        <circle cx="48" cy="48" r="16" fill="#1e1912"/>
+        <circle cx="48" cy="48" r="8" fill="#c9a94e"/>
+      </svg>
+      OcarinaCTRComposer
+    </a>
+    <div class="links">
+      <a href="#features">Features</a>
+      <a href="#install">Install</a>
+      <a href="#credits">Credits</a>
+      <a href="https://github.com/samaBR85/OcarinaCTRComposer/wiki/RAM-Address-Map">Address Map</a>
+      <a href="https://github.com/samaBR85/OcarinaCTRComposer">GitHub</a>
+    </div>
+  </div>
+</nav>
+
+<header id="top" class="hero wrap">
+  <svg class="logo" viewBox="0 0 96 96" aria-hidden="true">
+    <rect x="2" y="2" width="92" height="92" rx="20" fill="#1e1912" stroke="#c9a94e" stroke-width="4"/>
+    <polygon points="48.00,16.00 57.18,25.83 70.63,25.37 70.17,38.82 80.00,48.00 70.17,57.18 70.63,70.63 57.18,70.17 48.00,80.00 38.82,70.17 25.37,70.63 25.83,57.18 16.00,48.00 25.83,38.82 25.37,25.37 38.82,25.83" fill="#c9a94e"/>
+    <circle cx="48" cy="48" r="16" fill="#1e1912"/>
+    <circle cx="48" cy="48" r="8" fill="#c9a94e"/>
+  </svg>
+  <h1>OcarinaCTRComposer</h1>
+  <video class="hero-shot" controls autoplay muted loop playsinline preload="auto"
+    poster="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/home.png"
+    aria-label="A 2-minute tour of the plugin — starts muted, use the volume control to unmute">
+    <source src="https://github.com/samaBR85/OcarinaCTRComposer/releases/download/v1.0.0/OcarinaCTRComposer_tour.mp4" type="video/mp4">
+    Your browser doesn't support inline video —
+    <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/download/v1.0.0/OcarinaCTRComposer_tour.mp4">download the tour</a> instead.
+  </video>
+  <p class="hero-caption">tap speaker icon for sound</p>
+  <div class="badges">
+    <span class="badge">Luma3DS plugin</span>
+    <span class="badge">USA · Title ID 0004000000033500</span>
+    <span class="badge">v1.0.0</span>
+  </div>
+  <p class="sub">A cheats + tools overlay for <strong><em>The Legend of Zelda: Ocarina of Time&nbsp;3D</em></strong>, built on
+  <a href="https://samabr85.github.io/CTRComposer/"><strong>CTRComposer</strong></a> — a raw, self-rendered <code>.3gx</code> engine with no game hooks.</p>
+  <div class="cta-row">
+    <a class="btn primary" href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">Download latest release</a>
+    <a class="btn ghost" href="https://github.com/samaBR85/OcarinaCTRComposer">View on GitHub</a>
+  </div>
+  <div class="stats-row">
+    <img src="https://img.shields.io/github/v/release/samaBR85/OcarinaCTRComposer?label=version&color=c9a94e&style=flat-square" alt="Latest version" height="20">
+    <img src="https://img.shields.io/github/downloads/samaBR85/OcarinaCTRComposer/total?label=downloads&color=c9a94e&style=flat-square" alt="Total downloads" height="20">
+  </div>
+  <p class="support-line">If you find it useful, consider:</p>
+  <a class="kofi-btn" href="https://ko-fi.com/E5N7227AO5" target="_blank" rel="noopener">
+    <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi" height="28">
+  </a>
+</header>
+
+<section id="about" class="wrap center">
+  <h2>Press SELECT, and the menu is yours</h2>
+  <p>Everything renders on top of the running game — no CTRPluginFramework build to match, no hooks
+  into game code. Open it with <strong>SELECT</strong>, and it resumes exactly where you left it, even
+  mid-tool, the next time you open it.</p>
+</section>
+
+<section id="features" class="wrap">
+  <h2 class="center">What's inside</h2>
+  <div class="grid" id="features-grid">
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/battle.png" alt="Battle folder with cheats and live checkboxes" loading="lazy">
+      <div class="card-body">
+        <h3>~60 cheats</h3>
+        <p>Movement, Battle, Inventory, Time, Quest and Misc — data cheats and code patches (Invincible), with item pickers using the real inventory sprites.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/teleport.png" alt="Teleport folder, a filterable grid of warp destinations" loading="lazy">
+      <div class="card-body">
+        <h3>Teleport</h3>
+        <p>30 mapped warp destinations across the overworld and every dungeon, filterable by category, reliable for both child and adult Link.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/movement.png" alt="Movement folder showing a self-named waypoint slot" loading="lazy">
+      <div class="card-body">
+        <h3>Self-naming waypoints</h3>
+        <p>9 save/warp slots that name themselves after the area — "3. Water Temple R2" — and persist across sessions and age changes.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/misc.png" alt="Misc folder with the Toggle Age entry" loading="lazy">
+      <div class="card-body">
+        <h3>Toggle Age</h3>
+        <p>Swap child ↔ adult on the fly. The label and sword icon always show the age you're about to become.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/checklist_01.png" alt="100% Checklist hub with per-area progress bars" loading="lazy">
+      <div class="card-body">
+        <h3>100% Checklist</h3>
+        <p>Tracks completion by area. Auto-fill reads your save and stays in sync with whichever file is loaded — add what you have, drop what you don't.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/quickmenu.png" alt="Quick Menu with favourited cheats and shortcuts" loading="lazy">
+      <div class="card-body">
+        <h3>Quick Menu</h3>
+        <p>Favorite any cheat, teleport destination, folder or tool for one-press access, opened with a configurable hotkey combo.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/theme_06.png" alt="Change Theme picker showing the Synthwave palette" loading="lazy">
+      <div class="card-body">
+        <h3>26 color themes</h3>
+        <p>Live preview while you scroll — the classic parchment plus 25 more, from Game Boy Classic to Synthwave.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/game_guide.png" alt="The embedded Game Guide reader" loading="lazy">
+      <div class="card-body">
+        <h3>Embedded Game Guide</h3>
+        <p>A full OoT3D walkthrough readable on the top screen, in six languages, plus an in-plugin guide to every feature.</p>
+      </div>
+    </div>
+    <div class="card">
+      <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/settings.png" alt="Settings screen with rebindable hotkey rows" loading="lazy">
+      <div class="card-body">
+        <h3>Rebindable hotkeys</h3>
+        <p>MoonJump and Fast Move read their trigger from a table you control — cycle the binding in Settings, plus a one-tap reset back to the defaults.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tools" class="wrap">
+  <h2 class="center">Tools</h2>
+  <div class="tools-strip">
+    <div class="tool-pill"><b>Cheat Search</b>Known/unknown value scan, undo, region filter — with an on-screen keypad styled after the OoT3D keyboard.</div>
+    <div class="tool-pill"><b>RAM Dumper</b>Save any block of memory to a <code>.bin</code> on the SD card.</div>
+    <div class="tool-pill"><b>Hex Editor</b>Browse memory as a live hex grid and edit any byte on the spot.</div>
+  </div>
+</section>
+
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot preview">
+  <button id="lightbox-close" aria-label="Close">&times;</button>
+  <img id="lightbox-img" src="" alt="" />
+  <div id="lightbox-caption"></div>
+</div>
+
+<section id="install" class="wrap">
+  <h2 class="center">Install</h2>
+  <div class="install-cols">
+    <div class="install-card">
+      <h3>Manual</h3>
+      <ol>
+        <li>Download <code>OcarinaCTRComposer.3gx</code> from the <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">latest release</a>.</li>
+        <li>Copy it to <code>sdmc:/luma/plugins/0004000000033500/</code> — or extract the SD-ready <code>.zip</code> from the same release straight onto your SD card root.</li>
+        <li>Enable the plugin loader in Rosalina (<code>L + Down + SELECT</code> → Plugin Loader → Enabled).</li>
+        <li>Launch <em>Ocarina of Time 3D (USA)</em> and press <code>SELECT</code>.</li>
+      </ol>
+    </div>
+    <div class="install-card">
+      <h3>Via Universal-Updater</h3>
+      <div class="qr-row">
+        <img src="unistore-qr.png" width="128" height="128" alt="samaBR85 UniStore QR code" class="qr-code" />
+        <p>Have <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> on your
+        3DS? Scan this QR in <b>Settings → Select UniStore → + → Scan QR Code</b>, then pick
+        <b>OcarinaCTRComposer</b> and Download. It installs straight to your SD card — no PC needed.</p>
+      </div>
+      <p class="muted">Same <b>samaBR85</b> store used by <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> —
+      if you already added it for that plugin, OcarinaCTRComposer is already there too. No scanner handy?
+      Settings → Select UniStore → <code>+</code> → enter the URL instead:<br>
+      <code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code></p>
+    </div>
+  </div>
+  <div class="warn">
+    <strong>USA version only</strong> (Title ID <code>0004000000033500</code>). Cheat addresses are anchored
+    to that build — on EUR/JPN they're very likely different, and enabling them one at a time is the
+    safe way to find out.
+  </div>
+</section>
+
+<section id="credits" class="wrap">
+  <h2 class="center">Credits</h2>
+  <ul class="credits-list">
+    <li><b>Original OoT3D cheats plugin &amp; cheat codes</b> — Nanquitas</li>
+    <li><b>Luma3DS</b> (plugin loader) — LumaTeam</li>
+    <li><b>3GX plugin loader / 3gxtool</b> — PabloMK7</li>
+    <li><b>Walkthrough text</b> — z64central.com, packaged for the plugin by LowEndC</li>
+    <li><b>Item sprites</b> — The Spriters Resource, ripped by Colbydude</li>
+    <li><b>Progressive save files</b> used to map the save data — HelpTheWretched (HTW)</li>
+    <li><b>Entrance-warp mechanism &amp; entrance tables</b> — gamestabled, and the HylianFreddy fork</li>
+    <li><b>Additional codes</b> — Fort42</li>
+  </ul>
+  <p class="muted" style="margin-top:20px;">Rendering techniques referenced from CTRPluginFramework.</p>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="links">
+      <a href="https://github.com/samaBR85/OcarinaCTRComposer">GitHub repo</a>
+      <a href="https://github.com/samaBR85/OcarinaCTRComposer/wiki">Wiki</a>
+      <a href="https://github.com/samaBR85/OcarinaCTRComposer/wiki/RAM-Address-Map">RAM address map</a>
+      <a href="https://github.com/samaBR85/CTRComposer">CTRComposer engine</a>
+      <a href="https://github.com/samaBR85/OcarinaCTRComposer/blob/main/LICENSE">MIT license</a>
+    </div>
+    <p class="disclaimer">Fan project, non-commercial. <em>The Legend of Zelda: Ocarina of Time</em> and
+    all game content are © Nintendo. This plugin ships no game assets; it reads and modifies the
+    running game's memory on your own console. Use at your own risk.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // Every feature-card screenshot doubles as a click-to-enlarge preview.
+  document.querySelectorAll(".card img").forEach(function(img){
+    img.addEventListener("click", function(){ openLightbox(img.src, img.alt); });
+  });
+
+  var lb = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lightbox-img");
+  var lbCap = document.getElementById("lightbox-caption");
+  function openLightbox(src, cap){
+    lbImg.src = src; lbImg.alt = cap; lbCap.textContent = cap;
+    lb.classList.add("open");
+  }
+  function closeLightbox(){ lb.classList.remove("open"); lbImg.src = ""; }
+  document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
+  lb.addEventListener("click", function(e){ if (e.target === lb) closeLightbox(); });
+  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeLightbox(); });
+})();
+</script>
+
+</body>
+</html>

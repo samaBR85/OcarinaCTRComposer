@@ -31,3 +31,9 @@ references/
 SaveGames/
 GameGuide/
 dumps/
+
+# Demo video working files — the finished .mp4 is a GitHub Release asset (75 MB), never in-tree
+video/
+
+# NOTE: site/ is deliberately NOT ignored. It holds the source of the project page and is versioned
+# here; the deployed copy lives on the orphan `gh-pages` branch. See site/README.md.
