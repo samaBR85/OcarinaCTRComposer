@@ -37,9 +37,10 @@ https://github.com/user-attachments/assets/914cab43-581b-4a8a-b9d9-e0603246e835
 - **SELECT** always returns you to the game; reopening the menu resumes where you left off.
 - **26 color themes** (cosmetic) with a live preview — the classic Zelda parchment plus 25 more
   (Game Boy Classic, Synthwave, Zelda BotW, and others).
-- **Localization-ready** — the UI ships in **English**, with a built-in system that loads extra
-  languages from plain SD text files (`luma/plugins/<TitleID>/lang/`); the embedded Game Guide is
-  available in English, Français, Deutsch, Italiano, Español and Português.
+- **6 UI languages** — the full plugin UI (menus, cheats, descriptions, settings, hints) is
+  available in **English, Deutsch, Español, Français, Italiano and Português**, loaded from plain
+  SD text files (`luma/plugins/<TitleID>/lang/`). Select in Settings; the embedded Game Guide is
+  also available in all six languages.
 
 ---
 

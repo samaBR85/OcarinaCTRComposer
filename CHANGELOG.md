@@ -7,6 +7,16 @@ as the record of how many iterations went into each release.
 
 ---
 
+## v1.0.2 — UI translations
+
+The plugin UI is now available in five languages alongside English. The binary is unchanged — this release only adds the language files that the UI's existing localization system loads from the SD card.
+
+### Added
+- **UI translations** — Deutsch, Español, Français, Italiano and Português. All menus, cheat labels and descriptions, section headers, settings, tracker UI, button hints and all 30 teleport destination descriptions are translated. Select the language in Settings → Language.
+- Language files ship in `luma/plugins/0004000000033500/lang/` inside the SD payload `.zip`.
+
+---
+
 ## Unreleased · builds 91–171
 
 A long polish + content pass on top of the build-90 baseline.
