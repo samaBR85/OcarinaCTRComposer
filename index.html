@@ -30,11 +30,11 @@
     --radius:10px; --font-display:'Cinzel',serif; --font-body:'Inter',sans-serif;
   }
   *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
+  html{scroll-behavior:smooth; overflow-x:hidden;}
   body{
     margin:0; background:var(--bg0); color:var(--cream);
     font-family:var(--font-body); line-height:1.65; font-size:16px;
-    -webkit-font-smoothing:antialiased;
+    -webkit-font-smoothing:antialiased; overflow-x:hidden;
   }
   img{max-width:100%; display:block;}
   a{color:var(--gold-bright);}
@@ -67,8 +67,9 @@
   .lang-picker{display:flex; gap:3px; align-items:center;}
   .lang-btn{
     background:none; border:1px solid transparent; border-radius:6px;
-    padding:2px 5px; font-size:1.15rem; cursor:pointer; opacity:.4;
+    padding:2px 0; font-size:1.15rem; cursor:pointer; opacity:.4;
     transition:opacity .15s, border-color .15s; line-height:1;
+    width:2rem; text-align:center; flex-shrink:0;
   }
   .lang-btn:hover{opacity:.8;}
   .lang-btn.active{opacity:1; border-color:var(--border-strong);}
