@@ -792,7 +792,15 @@ function applyLang(lang) {
 
 var _savedLang = null;
 try { _savedLang = localStorage.getItem('ocarina-lang'); } catch(e) {}
-var _initLang = new URLSearchParams(location.search).get('lang') || _savedLang || 'en';
+function _browserLang() {
+  var langs = (navigator.languages && navigator.languages.length) ? navigator.languages : [navigator.language || ''];
+  for (var i = 0; i < langs.length; i++) {
+    var code = langs[i].slice(0, 2).toLowerCase();
+    if (T[code]) return code;
+  }
+  return null;
+}
+var _initLang = new URLSearchParams(location.search).get('lang') || _savedLang || _browserLang() || 'en';
 applyLang(_initLang);
 
 document.querySelectorAll('.lang-btn').forEach(function(btn) {
