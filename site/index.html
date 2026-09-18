@@ -64,6 +64,14 @@
   nav .links{display:flex; gap:16px; row-gap:6px; font-size:.92rem; flex-wrap:wrap;}
   nav .links a{color:var(--cream-dim); text-decoration:none;}
   nav .links a:hover{color:var(--gold-bright);}
+  .lang-picker{display:flex; gap:3px; align-items:center;}
+  .lang-btn{
+    background:none; border:1px solid transparent; border-radius:6px;
+    padding:2px 5px; font-size:1.15rem; cursor:pointer; opacity:.4;
+    transition:opacity .15s, border-color .15s; line-height:1;
+  }
+  .lang-btn:hover{opacity:.8;}
+  .lang-btn.active{opacity:1; border-color:var(--border-strong);}
 
   /* ---- hero ---- */
   .hero{padding-top:72px; padding-bottom:24px; text-align:center;}
@@ -187,12 +195,20 @@
       OcarinaCTRComposer
     </a>
     <div class="links">
-      <a href="#features">Features</a>
-      <a href="#install">Install</a>
-      <a href="#languages">Languages</a>
-      <a href="#credits">Credits</a>
+      <a href="#features" data-i18n="nav.features">Features</a>
+      <a href="#install" data-i18n="nav.install">Install</a>
+      <a href="#languages" data-i18n="nav.languages">Languages</a>
+      <a href="#credits" data-i18n="nav.credits">Credits</a>
       <a href="https://github.com/samaBR85/OcarinaCTRComposer/wiki/RAM-Address-Map">Address Map</a>
       <a href="https://github.com/samaBR85/OcarinaCTRComposer">GitHub</a>
+    </div>
+    <div class="lang-picker" role="group" aria-label="Language">
+      <button class="lang-btn active" data-lang="en" title="English">🇺🇸</button>
+      <button class="lang-btn" data-lang="de" title="Deutsch">🇩🇪</button>
+      <button class="lang-btn" data-lang="es" title="Español">🇪🇸</button>
+      <button class="lang-btn" data-lang="fr" title="Français">🇫🇷</button>
+      <button class="lang-btn" data-lang="it" title="Italiano">🇮🇹</button>
+      <button class="lang-btn" data-lang="pt" title="Português">🇧🇷</button>
     </div>
   </div>
 </nav>
@@ -212,107 +228,107 @@
     Your browser doesn't support inline video —
     <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/download/v1.0.0/OcarinaCTRComposer_tour.mp4">download the tour</a> instead.
   </video>
-  <p class="hero-caption">tap speaker icon for sound</p>
+  <p class="hero-caption" data-i18n="hero.caption">tap speaker icon for sound</p>
   <div class="badges">
     <span class="badge">Luma3DS plugin</span>
     <span class="badge">USA · Title ID 0004000000033500</span>
     <span class="badge">v1.0.2</span>
   </div>
-  <p class="sub">A cheats + tools overlay for <strong><em>The Legend of Zelda: Ocarina of Time&nbsp;3D</em></strong>, built on
+  <p class="sub" data-i18n-html="hero.sub">A cheats + tools overlay for <strong><em>The Legend of Zelda: Ocarina of Time&nbsp;3D</em></strong>, built on
   <a href="https://samabr85.github.io/CTRComposer/"><strong>CTRComposer</strong></a> — a raw, self-rendered <code>.3gx</code> engine with no game hooks.</p>
   <div class="cta-row">
-    <a class="btn primary" href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">Download latest release</a>
-    <a class="btn ghost" href="https://github.com/samaBR85/OcarinaCTRComposer">View on GitHub</a>
+    <a class="btn primary" href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest" data-i18n="hero.download">Download latest release</a>
+    <a class="btn ghost" href="https://github.com/samaBR85/OcarinaCTRComposer" data-i18n="hero.github">View on GitHub</a>
   </div>
   <div class="stats-row">
     <img src="https://img.shields.io/github/v/release/samaBR85/OcarinaCTRComposer?label=version&color=c9a94e&style=flat-square" alt="Latest version" height="20">
     <img src="https://img.shields.io/github/downloads/samaBR85/OcarinaCTRComposer/total?label=downloads&color=c9a94e&style=flat-square" alt="Total downloads" height="20">
   </div>
-  <p class="support-line">If you find it useful, consider:</p>
+  <p class="support-line" data-i18n="hero.support">If you find it useful, consider:</p>
   <a class="kofi-btn" href="https://ko-fi.com/E5N7227AO5" target="_blank" rel="noopener">
     <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support me on Ko-fi" height="28">
   </a>
 </header>
 
 <section id="about" class="wrap center">
-  <h2>Press SELECT, and the menu is yours</h2>
-  <p>Everything renders on top of the running game — no CTRPluginFramework build to match, no hooks
+  <h2 data-i18n="about.h2">Press SELECT, and the menu is yours</h2>
+  <p data-i18n-html="about.p">Everything renders on top of the running game — no CTRPluginFramework build to match, no hooks
   into game code. Open it with <strong>SELECT</strong>, and it resumes exactly where you left it, even
   mid-tool, the next time you open it.</p>
 </section>
 
 <section id="features" class="wrap">
-  <h2 class="center">What's inside</h2>
+  <h2 class="center" data-i18n="features.h2">What's inside</h2>
   <div class="grid" id="features-grid">
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/battle.png" alt="Battle folder with cheats and live checkboxes" loading="lazy">
       <div class="card-body">
-        <h3>~60 cheats</h3>
-        <p>Movement, Battle, Inventory, Time, Quest and Misc — data cheats and code patches (Invincible), with item pickers using the real inventory sprites.</p>
+        <h3 data-i18n="card1.h3">~60 cheats</h3>
+        <p data-i18n="card1.p">Movement, Battle, Inventory, Time, Quest and Misc — data cheats and code patches (Invincible), with item pickers using the real inventory sprites.</p>
       </div>
     </div>
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/teleport.png" alt="Teleport folder, a filterable grid of warp destinations" loading="lazy">
       <div class="card-body">
-        <h3>Teleport</h3>
-        <p>30 mapped warp destinations across the overworld and every dungeon, filterable by category, reliable for both child and adult Link.</p>
+        <h3 data-i18n="card2.h3">Teleport</h3>
+        <p data-i18n="card2.p">30 mapped warp destinations across the overworld and every dungeon, filterable by category, reliable for both child and adult Link.</p>
       </div>
     </div>
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/movement.png" alt="Movement folder showing a self-named waypoint slot" loading="lazy">
       <div class="card-body">
-        <h3>Self-naming waypoints</h3>
-        <p>9 save/warp slots that name themselves after the area — "3. Water Temple R2" — and persist across sessions and age changes.</p>
+        <h3 data-i18n="card3.h3">Self-naming waypoints</h3>
+        <p data-i18n="card3.p">9 save/warp slots that name themselves after the area — "3. Water Temple R2" — and persist across sessions and age changes.</p>
       </div>
     </div>
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/misc.png" alt="Misc folder with the Toggle Age entry" loading="lazy">
       <div class="card-body">
-        <h3>Toggle Age</h3>
-        <p>Swap child ↔ adult on the fly. The label and sword icon always show the age you're about to become.</p>
+        <h3 data-i18n="card4.h3">Toggle Age</h3>
+        <p data-i18n="card4.p">Swap child ↔ adult on the fly. The label and sword icon always show the age you're about to become.</p>
       </div>
     </div>
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/checklist_01.png" alt="100% Checklist hub with per-area progress bars" loading="lazy">
       <div class="card-body">
         <h3>100% Checklist</h3>
-        <p>Tracks completion by area. Auto-fill reads your save and stays in sync with whichever file is loaded — add what you have, drop what you don't.</p>
+        <p data-i18n="card5.p">Tracks completion by area. Auto-fill reads your save and stays in sync with whichever file is loaded — add what you have, drop what you don't.</p>
       </div>
     </div>
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/quickmenu.png" alt="Quick Menu with favourited cheats and shortcuts" loading="lazy">
       <div class="card-body">
-        <h3>Quick Menu</h3>
-        <p>Favorite any cheat, teleport destination, folder or tool for one-press access, opened with a configurable hotkey combo.</p>
+        <h3 data-i18n="card6.h3">Quick Menu</h3>
+        <p data-i18n="card6.p">Favorite any cheat, teleport destination, folder or tool for one-press access, opened with a configurable hotkey combo.</p>
       </div>
     </div>
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/theme_06.png" alt="Change Theme picker showing the Synthwave palette" loading="lazy">
       <div class="card-body">
-        <h3>26 color themes</h3>
-        <p>Live preview while you scroll — the classic parchment plus 25 more, from Game Boy Classic to Synthwave.</p>
+        <h3 data-i18n="card7.h3">26 color themes</h3>
+        <p data-i18n="card7.p">Live preview while you scroll — the classic parchment plus 25 more, from Game Boy Classic to Synthwave.</p>
       </div>
     </div>
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/game_guide.png" alt="The embedded Game Guide reader" loading="lazy">
       <div class="card-body">
-        <h3>Embedded Game Guide</h3>
-        <p>A full OoT3D walkthrough readable on the top screen, in six languages, plus an in-plugin guide to every feature.</p>
+        <h3 data-i18n="card8.h3">Embedded Game Guide</h3>
+        <p data-i18n="card8.p">A full OoT3D walkthrough readable on the top screen, in six languages, plus an in-plugin guide to every feature.</p>
       </div>
     </div>
     <div class="card">
       <img src="https://raw.githubusercontent.com/samaBR85/OcarinaCTRComposer/main/screenshots/settings.png" alt="Settings screen with rebindable hotkey rows" loading="lazy">
       <div class="card-body">
-        <h3>Rebindable hotkeys</h3>
-        <p>MoonJump and Fast Move read their trigger from a table you control — cycle the binding in Settings, plus a one-tap reset back to the defaults.</p>
+        <h3 data-i18n="card9.h3">Rebindable hotkeys</h3>
+        <p data-i18n="card9.p">MoonJump and Fast Move read their trigger from a table you control — cycle the binding in Settings, plus a one-tap reset back to the defaults.</p>
       </div>
     </div>
   </div>
 </section>
 
 <section id="languages" class="wrap center">
-  <h2>Available in 6 languages</h2>
-  <p>The full plugin UI — all menus, cheats, descriptions, settings and hints — is translated into five languages alongside English. Select in Settings; each language loads from a plain text file on the SD card.</p>
+  <h2 data-i18n="lang.h2">Available in 6 languages</h2>
+  <p data-i18n="lang.p">The full plugin UI — all menus, cheats, descriptions, settings and hints — is translated into five languages alongside English. Select in Settings; each language loads from a plain text file on the SD card.</p>
   <div class="lang-strip">
     <div class="lang-pill"><span class="flag">🇺🇸</span> English</div>
     <div class="lang-pill"><span class="flag">🇩🇪</span> Deutsch</div>
@@ -321,15 +337,15 @@
     <div class="lang-pill"><span class="flag">🇮🇹</span> Italiano</div>
     <div class="lang-pill"><span class="flag">🇧🇷</span> Português</div>
   </div>
-  <p class="muted" style="margin-top:20px;">The embedded Game Guide (walkthrough + plugin guide) is also available in all six languages.</p>
+  <p class="muted" style="margin-top:20px;" data-i18n="lang.muted">The embedded Game Guide (walkthrough + plugin guide) is also available in all six languages.</p>
 </section>
 
 <section id="tools" class="wrap">
-  <h2 class="center">Tools</h2>
+  <h2 class="center" data-i18n="tools.h2">Tools</h2>
   <div class="tools-strip">
-    <div class="tool-pill"><b>Cheat Search</b>Known/unknown value scan, undo, region filter — with an on-screen keypad styled after the OoT3D keyboard.</div>
-    <div class="tool-pill"><b>RAM Dumper</b>Save any block of memory to a <code>.bin</code> on the SD card.</div>
-    <div class="tool-pill"><b>Hex Editor</b>Browse memory as a live hex grid and edit any byte on the spot.</div>
+    <div class="tool-pill"><b data-i18n="tool1.b">Cheat Search</b><span data-i18n="tool1.desc">Known/unknown value scan, undo, region filter — with an on-screen keypad styled after the OoT3D keyboard.</span></div>
+    <div class="tool-pill"><b>RAM Dumper</b><span data-i18n-html="tool2.desc">Save any block of memory to a <code>.bin</code> on the SD card.</span></div>
+    <div class="tool-pill"><b>Hex Editor</b><span data-i18n="tool3.desc">Browse memory as a live hex grid and edit any byte on the spot.</span></div>
   </div>
 </section>
 
@@ -340,32 +356,32 @@
 </div>
 
 <section id="install" class="wrap">
-  <h2 class="center">Install</h2>
+  <h2 class="center" data-i18n="install.h2">Install</h2>
   <div class="install-cols">
     <div class="install-card">
-      <h3>Manual</h3>
+      <h3 data-i18n="install.manual.h3">Manual</h3>
       <ol>
-        <li>Download <code>OcarinaCTRComposer.3gx</code> from the <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">latest release</a>.</li>
-        <li>Copy it to <code>sdmc:/luma/plugins/0004000000033500/</code> — or extract the SD-ready <code>.zip</code> from the same release straight onto your SD card root.</li>
-        <li>Enable the plugin loader in Rosalina (<code>L + Down + SELECT</code> → Plugin Loader → Enabled).</li>
-        <li>Launch <em>Ocarina of Time 3D (USA)</em> and press <code>SELECT</code>.</li>
+        <li data-i18n-html="install.s1">Download <code>OcarinaCTRComposer.3gx</code> from the <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">latest release</a>.</li>
+        <li data-i18n-html="install.s2">Copy it to <code>sdmc:/luma/plugins/0004000000033500/</code> — or extract the SD-ready <code>.zip</code> from the same release straight onto your SD card root.</li>
+        <li data-i18n-html="install.s3">Enable the plugin loader in Rosalina (<code>L + Down + SELECT</code> → Plugin Loader → Enabled).</li>
+        <li data-i18n-html="install.s4">Launch <em>Ocarina of Time 3D (USA)</em> and press <code>SELECT</code>.</li>
       </ol>
     </div>
     <div class="install-card">
-      <h3>Via Universal-Updater</h3>
+      <h3 data-i18n="install.uu.h3">Via Universal-Updater</h3>
       <div class="qr-row">
         <img src="unistore-qr.png" width="128" height="128" alt="samaBR85 UniStore QR code" class="qr-code" />
-        <p>Have <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> on your
+        <p data-i18n-html="install.uu.desc">Have <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> on your
         3DS? Scan this QR in <b>Settings → Select UniStore → + → Scan QR Code</b>, then pick
         <b>OcarinaCTRComposer</b> and Download. It installs straight to your SD card — no PC needed.</p>
       </div>
-      <p class="muted">Same <b>samaBR85</b> store used by <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> —
+      <p class="muted" data-i18n-html="install.uu.muted">Same <b>samaBR85</b> store used by <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> —
       if you already added it for that plugin, OcarinaCTRComposer is already there too. No scanner handy?
       Settings → Select UniStore → <code>+</code> → enter the URL instead:<br>
       <code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code></p>
     </div>
   </div>
-  <div class="warn">
+  <div class="warn" data-i18n-html="install.warn">
     <strong>USA version only</strong> (Title ID <code>0004000000033500</code>). Cheat addresses are anchored
     to that build — on EUR/JPN they're very likely different, and enabling them one at a time is the
     safe way to find out.
@@ -373,7 +389,7 @@
 </section>
 
 <section id="credits" class="wrap">
-  <h2 class="center">Credits</h2>
+  <h2 class="center" data-i18n="credits.h2">Credits</h2>
   <ul class="credits-list">
     <li><b>Original OoT3D cheats plugin &amp; cheat codes</b> — Nanquitas</li>
     <li><b>Luma3DS</b> (plugin loader) — LumaTeam</li>
@@ -384,7 +400,7 @@
     <li><b>Entrance-warp mechanism &amp; entrance tables</b> — gamestabled, and the HylianFreddy fork</li>
     <li><b>Additional codes</b> — Fort42</li>
   </ul>
-  <p class="muted" style="margin-top:20px;">Rendering techniques referenced from CTRPluginFramework.</p>
+  <p class="muted" style="margin-top:20px;" data-i18n="credits.muted">Rendering techniques referenced from CTRPluginFramework.</p>
 </section>
 
 <footer>
@@ -394,32 +410,385 @@
       <a href="https://github.com/samaBR85/OcarinaCTRComposer/wiki">Wiki</a>
       <a href="https://github.com/samaBR85/OcarinaCTRComposer/wiki/RAM-Address-Map">RAM address map</a>
       <a href="https://github.com/samaBR85/CTRComposer">CTRComposer engine</a>
-      <a href="https://github.com/samaBR85/OcarinaCTRComposer/blob/main/LICENSE">MIT license</a>
+      <a href="https://github.com/samaBR85/OcarinaCTRComposer/blob/main/LICENSE" data-i18n="footer.license">MIT license</a>
     </div>
-    <p class="disclaimer">Fan project, non-commercial. <em>The Legend of Zelda: Ocarina of Time</em> and
+    <p class="disclaimer" data-i18n-html="footer.disclaimer">Fan project, non-commercial. <em>The Legend of Zelda: Ocarina of Time</em> and
     all game content are © Nintendo. This plugin ships no game assets; it reads and modifies the
     running game's memory on your own console. Use at your own risk.</p>
   </div>
 </footer>
 
 <script>
+// ---- i18n ----
+var T = {
+  en: {
+    'nav.features': 'Features',
+    'nav.install': 'Install',
+    'nav.languages': 'Languages',
+    'nav.credits': 'Credits',
+    'hero.caption': 'tap speaker icon for sound',
+    'hero.sub': 'A cheats + tools overlay for <strong><em>The Legend of Zelda: Ocarina of Time 3D</em></strong>, built on <a href="https://samabr85.github.io/CTRComposer/"><strong>CTRComposer</strong></a> — a raw, self-rendered <code>.3gx</code> engine with no game hooks.',
+    'hero.download': 'Download latest release',
+    'hero.github': 'View on GitHub',
+    'hero.support': 'If you find it useful, consider:',
+    'about.h2': 'Press SELECT, and the menu is yours',
+    'about.p': 'Everything renders on top of the running game — no CTRPluginFramework build to match, no hooks into game code. Open it with <strong>SELECT</strong>, and it resumes exactly where you left it, even mid-tool, the next time you open it.',
+    'features.h2': 'What’s inside',
+    'card1.h3': '~60 cheats',
+    'card1.p': 'Movement, Battle, Inventory, Time, Quest and Misc — data cheats and code patches (Invincible), with item pickers using the real inventory sprites.',
+    'card2.h3': 'Teleport',
+    'card2.p': '30 mapped warp destinations across the overworld and every dungeon, filterable by category, reliable for both child and adult Link.',
+    'card3.h3': 'Self-naming waypoints',
+    'card3.p': '9 save/warp slots that name themselves after the area — “3. Water Temple R2” — and persist across sessions and age changes.',
+    'card4.h3': 'Toggle Age',
+    'card4.p': 'Swap child ↔ adult on the fly. The label and sword icon always show the age you’re about to become.',
+    'card5.p': 'Tracks completion by area. Auto-fill reads your save and stays in sync with whichever file is loaded — add what you have, drop what you don’t.',
+    'card6.h3': 'Quick Menu',
+    'card6.p': 'Favorite any cheat, teleport destination, folder or tool for one-press access, opened with a configurable hotkey combo.',
+    'card7.h3': '26 color themes',
+    'card7.p': 'Live preview while you scroll — the classic parchment plus 25 more, from Game Boy Classic to Synthwave.',
+    'card8.h3': 'Embedded Game Guide',
+    'card8.p': 'A full OoT3D walkthrough readable on the top screen, in six languages, plus an in-plugin guide to every feature.',
+    'card9.h3': 'Rebindable hotkeys',
+    'card9.p': 'MoonJump and Fast Move read their trigger from a table you control — cycle the binding in Settings, plus a one-tap reset back to the defaults.',
+    'lang.h2': 'Available in 6 languages',
+    'lang.p': 'The full plugin UI — all menus, cheats, descriptions, settings and hints — is translated into five languages alongside English. Select in Settings; each language loads from a plain text file on the SD card.',
+    'lang.muted': 'The embedded Game Guide (walkthrough + plugin guide) is also available in all six languages.',
+    'tools.h2': 'Tools',
+    'tool1.b': 'Cheat Search',
+    'tool1.desc': 'Known/unknown value scan, undo, region filter — with an on-screen keypad styled after the OoT3D keyboard.',
+    'tool2.desc': 'Save any block of memory to a <code>.bin</code> on the SD card.',
+    'tool3.desc': 'Browse memory as a live hex grid and edit any byte on the spot.',
+    'install.h2': 'Install',
+    'install.manual.h3': 'Manual',
+    'install.s1': 'Download <code>OcarinaCTRComposer.3gx</code> from the <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">latest release</a>.',
+    'install.s2': 'Copy it to <code>sdmc:/luma/plugins/0004000000033500/</code> — or extract the SD-ready <code>.zip</code> from the same release straight onto your SD card root.',
+    'install.s3': 'Enable the plugin loader in Rosalina (<code>L + Down + SELECT</code> → Plugin Loader → Enabled).',
+    'install.s4': 'Launch <em>Ocarina of Time 3D (USA)</em> and press <code>SELECT</code>.',
+    'install.uu.h3': 'Via Universal-Updater',
+    'install.uu.desc': 'Have <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> on your 3DS? Scan this QR in <b>Settings → Select UniStore → + → Scan QR Code</b>, then pick <b>OcarinaCTRComposer</b> and Download. It installs straight to your SD card — no PC needed.',
+    'install.uu.muted': 'Same <b>samaBR85</b> store used by <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> — if you already added it for that plugin, OcarinaCTRComposer is already there too. No scanner handy? Settings → Select UniStore → <code>+</code> → enter the URL instead:<br><code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code>',
+    'install.warn': '<strong>USA version only</strong> (Title ID <code>0004000000033500</code>). Cheat addresses are anchored to that build — on EUR/JPN they’re very likely different, and enabling them one at a time is the safe way to find out.',
+    'credits.h2': 'Credits',
+    'credits.muted': 'Rendering techniques referenced from CTRPluginFramework.',
+    'footer.license': 'MIT license',
+    'footer.disclaimer': 'Fan project, non-commercial. <em>The Legend of Zelda: Ocarina of Time</em> and all game content are © Nintendo. This plugin ships no game assets; it reads and modifies the running game’s memory on your own console. Use at your own risk.'
+  },
+
+  de: {
+    'nav.features': 'Funktionen',
+    'nav.install': 'Installieren',
+    'nav.languages': 'Sprachen',
+    'nav.credits': 'Danksagungen',
+    'hero.caption': 'Lautsprecher-Symbol antippen für Ton',
+    'hero.sub': 'Ein Cheats + Tools Overlay für <strong><em>The Legend of Zelda: Ocarina of Time 3D</em></strong>, gebaut auf <a href="https://samabr85.github.io/CTRComposer/"><strong>CTRComposer</strong></a> — eine rohe, selbst-gerenderte <code>.3gx</code>-Engine ohne Spielhooks.',
+    'hero.download': 'Neueste Version herunterladen',
+    'hero.github': 'Auf GitHub ansehen',
+    'hero.support': 'Wenn du es nützlich findest:',
+    'about.h2': 'Drück SELECT, und das Menü gehört dir',
+    'about.p': 'Alles wird über das laufende Spiel gerendert — kein CTRPluginFramework-Build erforderlich, keine Hooks in den Spielcode. Mit <strong>SELECT</strong> öffnen, und es setzt genau dort fort, wo du aufgehört hast — selbst mitten in einem Werkzeug.',
+    'features.h2': 'Was enthalten ist',
+    'card1.h3': '~60 Cheats',
+    'card1.p': 'Bewegung, Kampf, Inventar, Zeit, Quest und Sonstiges — Datencheats und Code-Patches (Unverwundbar), mit Item-Auswahl über echte Inventar-Sprites.',
+    'card2.h3': 'Teleport',
+    'card2.p': '30 kartierte Warp-Ziele in der Oberwelt und jedem Dungeon, nach Kategorie filterbar, zuverlässig für Kind- und Erwachsenen-Link.',
+    'card3.h3': 'Automatisch benannte Wegpunkte',
+    'card3.p': '9 Speicher-/Warp-Slots, die sich nach dem Gebiet benennen — „3. Wassertempel R2“ — und über Spielsitzungen und Altersänderungen hinaus erhalten bleiben.',
+    'card4.h3': 'Alter wechseln',
+    'card4.p': 'Wechsle auf der Stelle zwischen Kind und Erwachsenem. Das Label und das Schwert-Icon zeigen immer das Alter, das du annehmen wirst.',
+    'card5.p': 'Verfolgt den Fortschritt nach Gebiet. Auto-Ausfüllen liest deinen Spielstand und bleibt mit der geladenen Datei synchron — fügt hinzu, was du hast, entfernt, was du nicht hast.',
+    'card6.h3': 'Schnellmenü',
+    'card6.p': 'Jeden Cheat, jedes Warp-Ziel, jeden Ordner oder jedes Werkzeug als Favorit markieren — geöffnet mit einer konfigurierbaren Tastenkombination.',
+    'card7.h3': '26 Farbthemen',
+    'card7.p': 'Live-Vorschau beim Scrollen — das klassische Pergament und 25 weitere, von Game Boy Classic bis Synthwave.',
+    'card8.h3': 'Eingebetteter Spielführer',
+    'card8.p': 'Ein vollständiger OoT3D-Leitfaden auf dem oberen Bildschirm, in sechs Sprachen, plus eine Plugin-eigene Anleitung zu jedem Feature.',
+    'card9.h3': 'Neu belegbare Tasten',
+    'card9.p': 'MoonJump und Schnelllauf lesen ihren Auslöser aus einer von dir kontrollierten Tabelle — Belegung in den Einstellungen wechseln, plus Zurücksetzen auf Standards mit einem Tastendruck.',
+    'lang.h2': 'Verfügbar in 6 Sprachen',
+    'lang.p': 'Die vollständige Plugin-Oberfläche — alle Menüs, Cheats, Beschreibungen, Einstellungen und Hinweise — ist neben Englisch in fünf weitere Sprachen übersetzt. In den Einstellungen auswählen; jede Sprache wird aus einer einfachen Textdatei auf der SD-Karte geladen.',
+    'lang.muted': 'Die eingebettete Spielanleitung (Komplettlösung + Plugin-Anleitung) ist ebenfalls in allen sechs Sprachen verfügbar.',
+    'tools.h2': 'Werkzeuge',
+    'tool1.b': 'Cheat-Suche',
+    'tool1.desc': 'Scan nach bekanntem/unbekanntem Wert, Rükgängig, Regionsfilter — mit einer Bildschirmtastatur im OoT3D-Stil.',
+    'tool2.desc': 'Jeden Speicherbereich als <code>.bin</code>-Datei auf der SD-Karte speichern.',
+    'tool3.desc': 'Speicher als Live-Hex-Raster durchsuchen und jeden Byte direkt bearbeiten.',
+    'install.h2': 'Installieren',
+    'install.manual.h3': 'Manuell',
+    'install.s1': '<code>OcarinaCTRComposer.3gx</code> von der <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">neuesten Version</a> herunterladen.',
+    'install.s2': 'In <code>sdmc:/luma/plugins/0004000000033500/</code> kopieren — oder die SD-fertige <code>.zip</code> aus der gleichen Version direkt ins SD-Stammverzeichnis entpacken.',
+    'install.s3': 'Plugin-Loader in Rosalina aktivieren (<code>L + Unten + SELECT</code> → Plugin Loader → Aktiviert).',
+    'install.s4': '<em>Ocarina of Time 3D (USA)</em> starten und <code>SELECT</code> drücken.',
+    'install.uu.h3': 'Über Universal-Updater',
+    'install.uu.desc': '<a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> auf deinem 3DS? Diesen QR in <b>Einstellungen → UniStore auswählen → + → QR-Code scannen</b> einscannen, dann <b>OcarinaCTRComposer</b> auswählen und Herunterladen. Installiert direkt auf die SD-Karte — kein PC nötig.',
+    'install.uu.muted': 'Derselbe <b>samaBR85</b>-Store wie <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> — wenn du ihn für dieses Plugin schon hinzugefügt hast, ist OcarinaCTRComposer bereits dabei. Kein Scanner? Einstellungen → UniStore auswählen → <code>+</code> → URL eingeben:<br><code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code>',
+    'install.warn': '<strong>Nur USA-Version</strong> (Title-ID <code>0004000000033500</code>). Cheat-Adressen sind an diesen Build gebunden — auf EUR/JPN unterscheiden sie sich höchstwahrscheinlich; Cheats einzeln aktivieren, um es herauszufinden.',
+    'credits.h2': 'Danksagungen',
+    'credits.muted': 'Rendering-Techniken referenziert von CTRPluginFramework.',
+    'footer.license': 'MIT-Lizenz',
+    'footer.disclaimer': 'Fan-Projekt, nicht kommerziell. <em>The Legend of Zelda: Ocarina of Time</em> und alle Spielinhalte sind © Nintendo. Dieses Plugin enthält keine Spielressourcen; es liest und modifiziert den Speicher des laufenden Spiels auf deiner eigenen Konsole. Auf eigene Gefahr.'
+  },
+
+  es: {
+    'nav.features': 'Características',
+    'nav.install': 'Instalar',
+    'nav.languages': 'Idiomas',
+    'nav.credits': 'Créditos',
+    'hero.caption': 'toca el icono del altavoz para el sonido',
+    'hero.sub': 'Un overlay de trucos y herramientas para <strong><em>The Legend of Zelda: Ocarina of Time 3D</em></strong>, construido sobre <a href="https://samabr85.github.io/CTRComposer/"><strong>CTRComposer</strong></a> — un motor <code>.3gx</code> bruto y autorenderizado sin hooks al juego.',
+    'hero.download': 'Descargar última versión',
+    'hero.github': 'Ver en GitHub',
+    'hero.support': 'Si te resulta útil, considera:',
+    'about.h2': 'Pulsa SELECT, y el menú es tuyo',
+    'about.p': 'Todo se renderiza sobre el juego en ejecución — sin build de CTRPluginFramework que coincidir, sin hooks en el código del juego. Ábrelo con <strong>SELECT</strong> y reanudará exactamente donde lo dejaste, incluso a mitad de una herramienta.',
+    'features.h2': 'Qué incluye',
+    'card1.h3': '~60 trucos',
+    'card1.p': 'Movimiento, Batalla, Inventario, Tiempo, Misión y Varios — trucos de datos y parches de código (Invencible), con selectores de objetos usando los sprites reales del inventario.',
+    'card2.h3': 'Teletransporte',
+    'card2.p': '30 destinos de teletransporte por el mundo abierto y cada mazmorra, filtrables por categoría, para Link niño y adulto.',
+    'card3.h3': 'Waypoints con nombre automático',
+    'card3.p': '9 ranuras de guardar/warp que se nombran solas según el área — “3. Water Temple R2” — y persisten entre sesiones y cambios de edad.',
+    'card4.h3': 'Cambiar Edad',
+    'card4.p': 'Cambia entre niño ↔ adulto al instante. La etiqueta y el icono de espada siempre muestran la edad que vas a adoptar.',
+    'card5.p': 'Rastrea la complección por zona. El relleno automático lee tu partida y se mantiene sincronizado con el archivo cargado — añade lo que tienes, quita lo que no.',
+    'card6.h3': 'Menú Rápido',
+    'card6.p': 'Añade a favoritos cualquier truco, destino de teletransporte, carpeta o herramienta para acceso directo, abierto con un atajo configurable.',
+    'card7.h3': '26 temas de color',
+    'card7.p': 'Vista previa en vivo al desplazarte — el pergamino clásico más 25, desde Game Boy Classic hasta Synthwave.',
+    'card8.h3': 'Guía de Juego Integrada',
+    'card8.p': 'Una guía completa de OoT3D legible en la pantalla superior, en seis idiomas, más una guía integrada sobre cada función.',
+    'card9.h3': 'Teclas reconfigurables',
+    'card9.p': 'MoonJump y Correr Rápido leen su activador desde una tabla que tú controlas — cambia el botón en Ajustes, más restablecimiento a los valores predeterminados con un toque.',
+    'lang.h2': 'Disponible en 6 idiomas',
+    'lang.p': 'La interfaz completa del plugin — todos los menús, trucos, descripciones, ajustes e indicaciones — está traducida a cinco idiomas además del inglés. Selécciona en Ajustes; cada idioma se carga desde un archivo de texto en la tarjeta SD.',
+    'lang.muted': 'La Guía de Juego integrada (guía + guía del plugin) también está disponible en los seis idiomas.',
+    'tools.h2': 'Herramientas',
+    'tool1.b': 'Búsqueda de Trucos',
+    'tool1.desc': 'Escaneo de valor conocido/desconocido, deshacer, filtro de región — con teclado en pantalla al estilo de OoT3D.',
+    'tool2.desc': 'Guarda cualquier bloque de memoria como <code>.bin</code> en la tarjeta SD.',
+    'tool3.desc': 'Explora la memoria como una cuadrícula hexadecimal en vivo y edita cualquier byte al instante.',
+    'install.h2': 'Instalar',
+    'install.manual.h3': 'Manual',
+    'install.s1': 'Descarga <code>OcarinaCTRComposer.3gx</code> desde la <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">última versión</a>.',
+    'install.s2': 'Cópialo en <code>sdmc:/luma/plugins/0004000000033500/</code> — o extrae el <code>.zip</code> listo para SD de la misma versión directamente en la raíz de tu SD.',
+    'install.s3': 'Activa el cargador de plugins en Rosalina (<code>L + Abajo + SELECT</code> → Plugin Loader → Habilitado).',
+    'install.s4': 'Lanza <em>Ocarina of Time 3D (USA)</em> y pulsa <code>SELECT</code>.',
+    'install.uu.h3': 'Vía Universal-Updater',
+    'install.uu.desc': '¿Tienes <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> en tu 3DS? Escanea este QR en <b>Ajustes → Seleccionar UniStore → + → Escanear QR</b>, luego elige <b>OcarinaCTRComposer</b> y Descargar. Se instala directo en tu SD — sin PC.',
+    'install.uu.muted': 'La misma tienda <b>samaBR85</b> de <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> — si ya la añadiste para ese plugin, OcarinaCTRComposer ya está incluido. ¿Sin escáner? Ajustes → Seleccionar UniStore → <code>+</code> → ingresa la URL:<br><code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code>',
+    'install.warn': '<strong>Solo versión USA</strong> (Title ID <code>0004000000033500</code>). Las direcciones de trucos están vinculadas a esa versión — en EUR/JPN probablemente son distintas; actívalos uno a uno para comprobarlo.',
+    'credits.h2': 'Créditos',
+    'credits.muted': 'Técnicas de renderizado referenciadas de CTRPluginFramework.',
+    'footer.license': 'Licencia MIT',
+    'footer.disclaimer': 'Proyecto de fan, sin ánimo de lucro. <em>The Legend of Zelda: Ocarina of Time</em> y todo el contenido del juego son © Nintendo. Este plugin no incluye activos del juego; lee y modifica la memoria del juego en tu propia consola. Úsalo bajo tu propio riesgo.'
+  },
+
+  fr: {
+    'nav.features': 'Fonctionnalités',
+    'nav.install': 'Installer',
+    'nav.languages': 'Langues',
+    'nav.credits': 'Crédits',
+    'hero.caption': 'touche l’icône haut-parleur pour le son',
+    'hero.sub': 'Un overlay de cheats et d’outils pour <strong><em>The Legend of Zelda : Ocarina of Time 3D</em></strong>, construit sur <a href="https://samabr85.github.io/CTRComposer/"><strong>CTRComposer</strong></a> — un moteur <code>.3gx</code> brut et autorendu sans hooks dans le jeu.',
+    'hero.download': 'Télécharger la dernière version',
+    'hero.github': 'Voir sur GitHub',
+    'hero.support': 'Si tu le trouves utile, pense à :',
+    'about.h2': 'Appuie sur SELECT, le menu est à toi',
+    'about.p': 'Tout s’affiche par-dessus le jeu en cours — aucun build CTRPluginFramework à faire correspondre, aucun hook dans le jeu. Ouvre-le avec <strong>SELECT</strong>, il reprend exactement là où tu l’as laissé, même en plein outil.',
+    'features.h2': 'Ce qu’il contient',
+    'card1.h3': '~60 codes',
+    'card1.p': 'Mouvement, Combat, Inventaire, Temps, Quête et Divers — cheats de données et patchs de code (Invincible), avec des sélecteurs d’objets utilisant les vrais sprites de l’inventaire.',
+    'card2.h3': 'Téléport',
+    'card2.p': '30 destinations de téléportation cartographiées dans le monde ouvert et chaque donjon, filtrables par catégorie, fiables pour Link enfant et adulte.',
+    'card3.h3': 'Points de passage auto-nommés',
+    'card3.p': '9 emplacements sauvegarde/warp qui se nomment d’après la zone — « 3. Water Temple R2 » — et persistent entre les sessions et les changements d’âge.',
+    'card4.h3': 'Changer l’âge',
+    'card4.p': 'Alterne enfant ↔ adulte à la volée. Le libellé et l’icône d’épée indiquent toujours l’âge que tu vas prendre.',
+    'card5.p': 'Suit la complétion par zone. L’auto-remplissage lit ta sauvegarde et reste synchronisé avec le fichier chargé — ajoute ce que tu as, retire ce que tu n’as pas.',
+    'card6.h3': 'Menu Rapide',
+    'card6.p': 'Mets en favori n’importe quel code, destination de téléport, dossier ou outil pour un accès en une touche, ouvert avec un raccourci configurable.',
+    'card7.h3': '26 thèmes de couleur',
+    'card7.p': 'Aperçu en direct pendant le défilement — le parchemin classique plus 25 autres, du Game Boy Classic au Synthwave.',
+    'card8.h3': 'Guide de Jeu Intégré',
+    'card8.p': 'Un guide OoT3D complet lisible sur l’écran supérieur, en six langues, plus un guide intégré pour chaque fonctionnalité.',
+    'card9.h3': 'Touches reconfigurables',
+    'card9.p': 'MoonJump et Déplacement Rapide lisent leur déclencheur dans un tableau que tu contrôles — change la touche dans Paramètres, plus une remise aux valeurs par défaut en un appui.',
+    'lang.h2': 'Disponible en 6 langues',
+    'lang.p': 'L’interface complète du plugin — tous les menus, codes, descriptions, paramètres et indications — est traduite en cinq langues en plus de l’anglais. À sélectionner dans Paramètres ; chaque langue se charge depuis un fichier texte sur la carte SD.',
+    'lang.muted': 'Le Guide de Jeu intégré (walkthrough + guide du plugin) est également disponible dans les six langues.',
+    'tools.h2': 'Outils',
+    'tool1.b': 'Recherche de Codes',
+    'tool1.desc': 'Scan de valeur connue/inconnue, annuler, filtre de région — avec un clavier à l’écran dans le style OoT3D.',
+    'tool2.desc': 'Sauvegarde n’importe quel bloc mémoire en <code>.bin</code> sur la carte SD.',
+    'tool3.desc': 'Parcourez la mémoire comme une grille hexadécimale en direct et modifiez n’importe quel octet sur place.',
+    'install.h2': 'Installer',
+    'install.manual.h3': 'Manuel',
+    'install.s1': 'Télécharger <code>OcarinaCTRComposer.3gx</code> depuis la <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">dernière version</a>.',
+    'install.s2': 'Copie-le dans <code>sdmc:/luma/plugins/0004000000033500/</code> — ou extrais le <code>.zip</code> prêt pour SD de la même version directement à la racine de ta SD.',
+    'install.s3': 'Active le chargeur de plugins dans Rosalina (<code>L + Bas + SELECT</code> → Plugin Loader → Activé).',
+    'install.s4': 'Lance <em>Ocarina of Time 3D (USA)</em> et appuie sur <code>SELECT</code>.',
+    'install.uu.h3': 'Via Universal-Updater',
+    'install.uu.desc': 'Tu as <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> sur ta 3DS ? Scanne ce QR dans <b>Paramètres → Sélectionner UniStore → + → Scanner QR</b>, puis choisis <b>OcarinaCTRComposer</b> et Télécharger. S’installe directement sur ta SD — sans PC.',
+    'install.uu.muted': 'La même boutique <b>samaBR85</b> que <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> — si tu l’as déjà ajoutée pour ce plugin, OcarinaCTRComposer y est déjà. Pas de scanner ? Paramètres → Sélectionner UniStore → <code>+</code> → entre l’URL :<br><code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code>',
+    'install.warn': '<strong>Version USA uniquement</strong> (Title ID <code>0004000000033500</code>). Les adresses de cheats sont liées à cette version — sur EUR/JPN elles sont très probablement différentes ; active-les un par un pour le savoir.',
+    'credits.h2': 'Crédits',
+    'credits.muted': 'Techniques de rendu référencées depuis CTRPluginFramework.',
+    'footer.license': 'Licence MIT',
+    'footer.disclaimer': 'Projet de fan, non commercial. <em>The Legend of Zelda : Ocarina of Time</em> et tout le contenu du jeu sont © Nintendo. Ce plugin ne contient aucun actif du jeu ; il lit et modifie la mémoire du jeu en cours d’exécution sur ta propre console. À utiliser à tes risques et périls.'
+  },
+
+  it: {
+    'nav.features': 'Funzionalità',
+    'nav.install': 'Installa',
+    'nav.languages': 'Lingue',
+    'nav.credits': 'Crediti',
+    'hero.caption': 'tocca l’icona altoparlante per il suono',
+    'hero.sub': 'Un overlay di cheat e strumenti per <strong><em>The Legend of Zelda: Ocarina of Time 3D</em></strong>, costruito su <a href="https://samabr85.github.io/CTRComposer/"><strong>CTRComposer</strong></a> — un motore <code>.3gx</code> grezzo e autorenduto senza hook nel gioco.',
+    'hero.download': 'Scarica l’ultima versione',
+    'hero.github': 'Vedi su GitHub',
+    'hero.support': 'Se lo trovi utile, considera:',
+    'about.h2': 'Premi SELECT, e il menu è tuo',
+    'about.p': 'Tutto viene renderizzato sopra il gioco in esecuzione — nessuna build CTRPluginFramework da abbinare, nessun hook nel codice. Aprilo con <strong>SELECT</strong> e riprende esattamente da dove ti eri fermato, anche a metà di uno strumento.',
+    'features.h2': 'Cosa contiene',
+    'card1.h3': '~60 cheat',
+    'card1.p': 'Movimento, Battaglia, Inventario, Tempo, Quest e Varie — cheat di dati e patch di codice (Invincibile), con selettori di oggetti che usano gli sprite reali dell’inventario.',
+    'card2.h3': 'Teletrasporto',
+    'card2.p': '30 destinazioni di teletrasporto mappate nel mondo esterno e ogni dungeon, filtrabili per categoria, affidabili per Link bambino e adulto.',
+    'card3.h3': 'Waypoint con nome automatico',
+    'card3.p': '9 slot salvataggio/warp che si rinominano in base alla zona — “3. Water Temple R2” — e persistono tra sessioni e cambi di età.',
+    'card4.h3': 'Cambia Età',
+    'card4.p': 'Scambia bambino ↔ adulto al volo. L’etichetta e l’icona della spada mostrano sempre l’età che stai per assumere.',
+    'card5.p': 'Traccia il completamento per area. L’auto-riempimento legge il tuo salvataggio e rimane sincronizzato con il file caricato — aggiunge ciò che hai, rimuove ciò che non hai.',
+    'card6.h3': 'Menu Rapido',
+    'card6.p': 'Aggiungi ai preferiti qualsiasi cheat, destinazione di teletrasporto, cartella o strumento per l’accesso in un tasto, aperto con un tasto rapido configurabile.',
+    'card7.h3': '26 temi colore',
+    'card7.p': 'Anteprima dal vivo mentre scorri — il classico pergamena più altri 25, dal Game Boy Classic al Synthwave.',
+    'card8.h3': 'Guida di Gioco Integrata',
+    'card8.p': 'Una guida OoT3D completa leggibile sullo schermo superiore, in sei lingue, più una guida interna a ogni funzionalità.',
+    'card9.h3': 'Tasti riconfigurabili',
+    'card9.p': 'MoonJump e Movimento Veloce leggono il loro trigger da una tabella che controlli tu — cambia l’assegnazione nelle Impostazioni, più un reset ai predefiniti con un tocco.',
+    'lang.h2': 'Disponibile in 6 lingue',
+    'lang.p': 'L’interfaccia completa del plugin — tutti i menu, i cheat, le descrizioni, le impostazioni e i suggerimenti — è tradotta in cinque lingue oltre all’inglese. Seleziona in Impostazioni; ogni lingua viene caricata da un file di testo sulla scheda SD.',
+    'lang.muted': 'La Guida di Gioco integrata (walkthrough + guida del plugin) è disponibile anche in tutte e sei le lingue.',
+    'tools.h2': 'Strumenti',
+    'tool1.b': 'Ricerca Cheat',
+    'tool1.desc': 'Scansione valore noto/sconosciuto, annulla, filtro regione — con tastiera su schermo in stile OoT3D.',
+    'tool2.desc': 'Salva qualsiasi blocco di memoria in un file <code>.bin</code> sulla scheda SD.',
+    'tool3.desc': 'Sfoglia la memoria come una griglia esadecimale dal vivo e modifica qualsiasi byte sul posto.',
+    'install.h2': 'Installa',
+    'install.manual.h3': 'Manuale',
+    'install.s1': 'Scarica <code>OcarinaCTRComposer.3gx</code> dall’<a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">ultima versione</a>.',
+    'install.s2': 'Copialo in <code>sdmc:/luma/plugins/0004000000033500/</code> — o estrai il <code>.zip</code> pronto per la SD dalla stessa versione direttamente nella root della SD.',
+    'install.s3': 'Attiva il plugin loader in Rosalina (<code>L + Giù + SELECT</code> → Plugin Loader → Abilitato).',
+    'install.s4': 'Avvia <em>Ocarina of Time 3D (USA)</em> e premi <code>SELECT</code>.',
+    'install.uu.h3': 'Tramite Universal-Updater',
+    'install.uu.desc': 'Hai <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> sul 3DS? Scansiona questo QR in <b>Impostazioni → Seleziona UniStore → + → Scansiona QR</b>, poi scegli <b>OcarinaCTRComposer</b> e Scarica. Si installa sulla SD — senza PC.',
+    'install.uu.muted': 'Lo stesso store <b>samaBR85</b> di <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> — se l’hai già aggiunto per quel plugin, OcarinaCTRComposer è già presente. Nessun scanner? Impostazioni → Seleziona UniStore → <code>+</code> → inserisci l’URL:<br><code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code>',
+    'install.warn': '<strong>Solo versione USA</strong> (Title ID <code>0004000000033500</code>). Gli indirizzi cheat sono vincolati a quella build — su EUR/JPN sono probabilmente diversi; attivali uno alla volta per scoprirlo.',
+    'credits.h2': 'Crediti',
+    'credits.muted': 'Tecniche di rendering prese come riferimento da CTRPluginFramework.',
+    'footer.license': 'Licenza MIT',
+    'footer.disclaimer': 'Progetto fan, non commerciale. <em>The Legend of Zelda: Ocarina of Time</em> e tutti i contenuti del gioco sono © Nintendo. Questo plugin non include asset del gioco; legge e modifica la memoria del gioco in esecuzione sulla tua console. A tuo rischio e pericolo.'
+  },
+
+  pt: {
+    'nav.features': 'Funcionalidades',
+    'nav.install': 'Instalar',
+    'nav.languages': 'Idiomas',
+    'nav.credits': 'Créditos',
+    'hero.caption': 'toque no ícone do alto-falante para som',
+    'hero.sub': 'Um overlay de cheats e ferramentas para <strong><em>The Legend of Zelda: Ocarina of Time 3D</em></strong>, construído sobre <a href="https://samabr85.github.io/CTRComposer/"><strong>CTRComposer</strong></a> — um motor <code>.3gx</code> bruto e auto-renderizado sem hooks no jogo.',
+    'hero.download': 'Baixar última versão',
+    'hero.github': 'Ver no GitHub',
+    'hero.support': 'Se achar útil, considere:',
+    'about.h2': 'Pressione SELECT, e o menu é seu',
+    'about.p': 'Tudo é renderizado sobre o jogo em execução — sem build do CTRPluginFramework, sem hooks no código do jogo. Abra com <strong>SELECT</strong> e retoma exatamente onde parou, mesmo no meio de uma ferramenta.',
+    'features.h2': 'O que está dentro',
+    'card1.h3': '~60 cheats',
+    'card1.p': 'Movimento, Batalha, Inventário, Tempo, Missão e Diversos — cheats de dados e patches de código (Invencível), com seletores de itens usando os sprites reais do inventário.',
+    'card2.h3': 'Teletransporte',
+    'card2.p': '30 destinos de teletransporte mapeados pelo mundo aberto e cada masmorra, filtráveis por categoria, confiáveis para Link criança e adulto.',
+    'card3.h3': 'Waypoints com nome automático',
+    'card3.p': '9 slots de salvar/warp que se nomeiam automaticamente pela área — “3. Water Temple R2” — e persistem entre sessões e mudanças de idade.',
+    'card4.h3': 'Alternar Idade',
+    'card4.p': 'Troca criança ↔ adulto na hora. O rótulo e o ícone da espada sempre mostram a idade que você vai se tornar.',
+    'card5.p': 'Rastreia a conclusão por área. O preenchimento automático lê seu save e fica sincronizado com o arquivo carregado — adiciona o que você tem, remove o que não tem.',
+    'card6.h3': 'Menu Rápido',
+    'card6.p': 'Favorite qualquer cheat, destino de teletransporte, pasta ou ferramenta para acesso em um toque, aberto com um atalho configurável.',
+    'card7.h3': '26 temas de cores',
+    'card7.p': 'Preview ao vivo enquanto rola — o pergaminho clássico mais 25 outros, de Game Boy Classic a Synthwave.',
+    'card8.h3': 'Guia do Jogo Integrado',
+    'card8.p': 'Um guia completo do OoT3D legível na tela superior, em seis idiomas, mais um guia integrado para cada funcionalidade.',
+    'card9.h3': 'Atalhos reconfiguráveis',
+    'card9.p': 'MoonJump e Correr Rápido leem seu gatilho de uma tabela que você controla — alterne o botão nas Configurações, mais um reset para os padrões com um toque.',
+    'lang.h2': 'Disponível em 6 idiomas',
+    'lang.p': 'A interface completa do plugin — todos os menus, cheats, descrições, configurações e dicas — está traduzida em cinco idiomas além do inglês. Selecione em Configurações; cada idioma é carregado de um arquivo de texto no cartão SD.',
+    'lang.muted': 'O Guia do Jogo integrado (guia + guia do plugin) também está disponível em todos os seis idiomas.',
+    'tools.h2': 'Ferramentas',
+    'tool1.b': 'Busca de Cheats',
+    'tool1.desc': 'Varredura de valor conhecido/desconhecido, desfazer, filtro de região — com teclado na tela no estilo OoT3D.',
+    'tool2.desc': 'Salva qualquer bloco de memória como <code>.bin</code> no cartão SD.',
+    'tool3.desc': 'Navegue pela memória como uma grade hexadecimal ao vivo e edite qualquer byte na hora.',
+    'install.h2': 'Instalar',
+    'install.manual.h3': 'Manual',
+    'install.s1': 'Baixe <code>OcarinaCTRComposer.3gx</code> da <a href="https://github.com/samaBR85/OcarinaCTRComposer/releases/latest">última versão</a>.',
+    'install.s2': 'Copie para <code>sdmc:/luma/plugins/0004000000033500/</code> — ou extraia o <code>.zip</code> pronto para SD da mesma versão diretamente na raiz do SD.',
+    'install.s3': 'Ative o carregador de plugins no Rosalina (<code>L + Baixo + SELECT</code> → Plugin Loader → Ativado).',
+    'install.s4': 'Abra <em>Ocarina of Time 3D (USA)</em> e pressione <code>SELECT</code>.',
+    'install.uu.h3': 'Via Universal-Updater',
+    'install.uu.desc': 'Tem o <a href="https://github.com/Universal-Team/Universal-Updater">Universal-Updater</a> no 3DS? Escaneie este QR em <b>Configurações → Selecionar UniStore → + → Escanear QR</b>, depois escolha <b>OcarinaCTRComposer</b> e Baixar. Instala na SD — sem PC.',
+    'install.uu.muted': 'A mesma loja <b>samaBR85</b> do <a href="https://samabr85.github.io/Gen6CTRPFrameworkOverhauled/">Gen6 CTRPF Overhauled</a> — se você já adicionou para aquele plugin, o OcarinaCTRComposer já está lá. Sem scanner? Configurações → Selecionar UniStore → <code>+</code> → insira a URL:<br><code>raw.githubusercontent.com/samaBR85/Gen6CTRPFrameworkOverhauled/main/unistore/gen6ctrpf.unistore</code>',
+    'install.warn': '<strong>Apenas versão USA</strong> (Title ID <code>0004000000033500</code>). Os endereços de cheat estão vinculados a essa versão — no EUR/JPN provavelmente são diferentes; ative um por vez para descobrir.',
+    'credits.h2': 'Créditos',
+    'credits.muted': 'Técnicas de renderização referenciadas do CTRPluginFramework.',
+    'footer.license': 'Licença MIT',
+    'footer.disclaimer': 'Projeto de fã, sem fins comerciais. <em>The Legend of Zelda: Ocarina of Time</em> e todo o conteúdo do jogo são © Nintendo. Este plugin não inclui assets do jogo; lê e modifica a memória do jogo em execução no seu próprio console. Use por sua conta e risco.'
+  }
+};
+
+function applyLang(lang) {
+  if (!T[lang]) lang = 'en';
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (T[lang][key] !== undefined) el.textContent = T[lang][key];
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-html');
+    if (T[lang][key] !== undefined) el.innerHTML = T[lang][key];
+  });
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+  });
+  try { localStorage.setItem('ocarina-lang', lang); } catch(e) {}
+}
+
+var _savedLang = null;
+try { _savedLang = localStorage.getItem('ocarina-lang'); } catch(e) {}
+var _initLang = new URLSearchParams(location.search).get('lang') || _savedLang || 'en';
+applyLang(_initLang);
+
+document.querySelectorAll('.lang-btn').forEach(function(btn) {
+  btn.addEventListener('click', function() { applyLang(btn.getAttribute('data-lang')); });
+});
+
+// ---- lightbox ----
 (function(){
-  // Every feature-card screenshot doubles as a click-to-enlarge preview.
-  document.querySelectorAll(".card img").forEach(function(img){
-    img.addEventListener("click", function(){ openLightbox(img.src, img.alt); });
+  document.querySelectorAll('.card img').forEach(function(img) {
+    img.addEventListener('click', function(){ openLightbox(img.src, img.alt); });
   });
 
-  var lb = document.getElementById("lightbox");
-  var lbImg = document.getElementById("lightbox-img");
-  var lbCap = document.getElementById("lightbox-caption");
+  var lb = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  var lbCap = document.getElementById('lightbox-caption');
   function openLightbox(src, cap){
     lbImg.src = src; lbImg.alt = cap; lbCap.textContent = cap;
-    lb.classList.add("open");
+    lb.classList.add('open');
   }
-  function closeLightbox(){ lb.classList.remove("open"); lbImg.src = ""; }
-  document.getElementById("lightbox-close").addEventListener("click", closeLightbox);
-  lb.addEventListener("click", function(e){ if (e.target === lb) closeLightbox(); });
-  document.addEventListener("keydown", function(e){ if (e.key === "Escape") closeLightbox(); });
+  function closeLightbox(){ lb.classList.remove('open'); lbImg.src = ''; }
+  document.getElementById('lightbox-close').addEventListener('click', closeLightbox);
+  lb.addEventListener('click', function(e){ if (e.target === lb) closeLightbox(); });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') closeLightbox(); });
 })();
 </script>
 
