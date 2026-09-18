@@ -66,13 +66,14 @@
   nav .links a:hover{color:var(--gold-bright);}
   .lang-picker{display:flex; gap:3px; align-items:center;}
   .lang-btn{
-    background:none; border:1px solid transparent; border-radius:6px;
-    padding:2px 0; font-size:1.15rem; cursor:pointer; opacity:.4;
-    transition:opacity .15s, border-color .15s; line-height:1;
-    width:2rem; text-align:center; flex-shrink:0;
+    background:none; border:1px solid transparent; border-radius:5px;
+    padding:3px 5px; cursor:pointer; opacity:.45; line-height:0;
+    transition:opacity .15s, border-color .15s;
+    display:inline-flex; align-items:center; flex-shrink:0;
   }
-  .lang-btn:hover{opacity:.8;}
+  .lang-btn:hover{opacity:.85;}
   .lang-btn.active{opacity:1; border-color:var(--border-strong);}
+  .flag-ico{width:22px; height:15px; border-radius:2px; display:block; box-shadow:inset 0 0 0 1px rgba(0,0,0,.2);}
 
   /* ---- hero ---- */
   .hero{padding-top:72px; padding-bottom:24px; text-align:center;}
@@ -172,7 +173,7 @@
     background:var(--bg1); border:1px solid var(--border); border-radius:999px;
     padding:8px 18px; font-size:.95rem; color:var(--cream);
   }
-  .lang-pill .flag{font-size:1.4rem; line-height:1;}
+  .lang-pill .flag-ico{width:27px; height:19px; border-radius:3px;}
 
   /* ---- footer ---- */
   footer{padding:40px 0 60px; text-align:center;}
@@ -183,6 +184,31 @@
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="flag-en" viewBox="0 0 19 10">
+      <rect width="19" height="10" fill="#fff"/>
+      <g fill="#B22234"><rect width="19" height="0.77"/><rect y="1.54" width="19" height="0.77"/><rect y="3.08" width="19" height="0.77"/><rect y="4.62" width="19" height="0.77"/><rect y="6.15" width="19" height="0.77"/><rect y="7.69" width="19" height="0.77"/><rect y="9.23" width="19" height="0.77"/></g>
+      <rect width="7.6" height="5.38" fill="#3C3B6E"/>
+    </symbol>
+    <symbol id="flag-de" viewBox="0 0 5 3">
+      <rect width="5" height="3" fill="#000"/><rect y="1" width="5" height="1" fill="#DD0000"/><rect y="2" width="5" height="1" fill="#FFCE00"/>
+    </symbol>
+    <symbol id="flag-es" viewBox="0 0 4 3">
+      <rect width="4" height="3" fill="#AA151B"/><rect y="0.75" width="4" height="1.5" fill="#F1BF00"/>
+    </symbol>
+    <symbol id="flag-fr" viewBox="0 0 3 2">
+      <rect width="3" height="2" fill="#fff"/><rect width="1" height="2" fill="#0055A4"/><rect x="2" width="1" height="2" fill="#EF4135"/>
+    </symbol>
+    <symbol id="flag-it" viewBox="0 0 3 2">
+      <rect width="3" height="2" fill="#fff"/><rect width="1" height="2" fill="#009246"/><rect x="2" width="1" height="2" fill="#CE2B37"/>
+    </symbol>
+    <symbol id="flag-br" viewBox="0 0 21 15">
+      <rect width="21" height="15" fill="#009C3B"/><polygon points="10.5,1.4 19.6,7.5 10.5,13.6 1.4,7.5" fill="#FFDF00"/><circle cx="10.5" cy="7.5" r="3.4" fill="#002776"/>
+    </symbol>
+  </defs>
+</svg>
 
 <nav>
   <div class="bar">
@@ -204,12 +230,12 @@
       <a href="https://github.com/samaBR85/OcarinaCTRComposer">GitHub</a>
     </div>
     <div class="lang-picker" role="group" aria-label="Language">
-      <button class="lang-btn active" data-lang="en" title="English">🇺🇸</button>
-      <button class="lang-btn" data-lang="de" title="Deutsch">🇩🇪</button>
-      <button class="lang-btn" data-lang="es" title="Español">🇪🇸</button>
-      <button class="lang-btn" data-lang="fr" title="Français">🇫🇷</button>
-      <button class="lang-btn" data-lang="it" title="Italiano">🇮🇹</button>
-      <button class="lang-btn" data-lang="pt" title="Português">🇧🇷</button>
+      <button class="lang-btn active" data-lang="en" title="English" aria-label="English"><svg class="flag-ico"><use href="#flag-en"/></svg></button>
+      <button class="lang-btn" data-lang="de" title="Deutsch" aria-label="Deutsch"><svg class="flag-ico"><use href="#flag-de"/></svg></button>
+      <button class="lang-btn" data-lang="es" title="Español" aria-label="Español"><svg class="flag-ico"><use href="#flag-es"/></svg></button>
+      <button class="lang-btn" data-lang="fr" title="Français" aria-label="Français"><svg class="flag-ico"><use href="#flag-fr"/></svg></button>
+      <button class="lang-btn" data-lang="it" title="Italiano" aria-label="Italiano"><svg class="flag-ico"><use href="#flag-it"/></svg></button>
+      <button class="lang-btn" data-lang="pt" title="Português" aria-label="Português"><svg class="flag-ico"><use href="#flag-br"/></svg></button>
     </div>
   </div>
 </nav>
@@ -331,12 +357,12 @@
   <h2 data-i18n="lang.h2">Available in 6 languages</h2>
   <p data-i18n="lang.p">The full plugin UI — all menus, cheats, descriptions, settings and hints — is translated into five languages alongside English. Select in Settings; each language loads from a plain text file on the SD card.</p>
   <div class="lang-strip">
-    <div class="lang-pill"><span class="flag">🇺🇸</span> English</div>
-    <div class="lang-pill"><span class="flag">🇩🇪</span> Deutsch</div>
-    <div class="lang-pill"><span class="flag">🇪🇸</span> Español</div>
-    <div class="lang-pill"><span class="flag">🇫🇷</span> Français</div>
-    <div class="lang-pill"><span class="flag">🇮🇹</span> Italiano</div>
-    <div class="lang-pill"><span class="flag">🇧🇷</span> Português</div>
+    <div class="lang-pill"><svg class="flag-ico"><use href="#flag-en"/></svg> English</div>
+    <div class="lang-pill"><svg class="flag-ico"><use href="#flag-de"/></svg> Deutsch</div>
+    <div class="lang-pill"><svg class="flag-ico"><use href="#flag-es"/></svg> Español</div>
+    <div class="lang-pill"><svg class="flag-ico"><use href="#flag-fr"/></svg> Français</div>
+    <div class="lang-pill"><svg class="flag-ico"><use href="#flag-it"/></svg> Italiano</div>
+    <div class="lang-pill"><svg class="flag-ico"><use href="#flag-br"/></svg> Português</div>
   </div>
   <p class="muted" style="margin-top:20px;" data-i18n="lang.muted">The embedded Game Guide (walkthrough + plugin guide) is also available in all six languages.</p>
 </section>
